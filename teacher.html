@@ -63,7 +63,7 @@
     .section-title{margin:19px 0 10px;border-top:1px solid var(--line);padding-top:16px}
     .intro{font-size:13px;color:#627784;margin-bottom:14px}
     .row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
-    .identity{display:grid;grid-template-columns:1.1fr repeat(3,.65fr) 1.35fr;gap:9px;margin-top:13px}
+    .identity{display:grid;grid-template-columns:minmax(130px,1fr) minmax(165px,1.35fr) repeat(4,minmax(65px,.6fr)) minmax(140px,1.2fr);gap:9px;margin-top:13px}
     .field{display:flex;flex-direction:column;gap:5px;min-width:0}
     .field label{font-size:12px;font-weight:800;color:#496674}
     .field input,.field select,.field textarea{width:100%;font-size:13px}
@@ -118,8 +118,16 @@
 <div class="wrap">
   <div class="warning"><strong>교사 전용 작업 화면 · 중요 안내</strong><br>이 화면의 주소는 교사용 로그인 기능이 아닙니다. GitHub Pages로 배포해도 <b>학급 목록·교사 메모는 현재 브라우저 안에만 저장</b>되며 서버에 자동 수집되지 않습니다. <b>교사 개인 PC에서만</b> 작업하고, 개인정보와 생기부 초안을 GitHub 저장소·공유 PC·공개 링크에 업로드하지 마세요. 학생 자기소개서는 그대로 생기부 기재 근거가 될 수 없으며, 교사가 관찰·확인한 학교교육활동을 근거로 최종 판단해야 합니다.</div>
 
+  <section class="card" style="margin:14px 0;padding:14px 19px">
+    <details><summary style="cursor:pointer;font-size:14px;font-weight:850;color:#12695f">📱 학생 접속 QR코드 공유 · 교실 화면에 띄우기</summary>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px;padding-top:14px"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUgAAAFIAQAAAAAab1qeAAAByUlEQVR42u2aO3bEMAwDMXm5/5WRgiLlTWVpW7jY9QfVPFIEKWG9vH4UZZRRRhnlvn4libq3JDzPxs8v4fmap7yoUjeuG+P5Ep4nPIXkwSlcbzxfwvNKSQWrCyaE0rdKC4QMWskeShf53uRwL6FgP7+E5wHPTmyzmZpHgQ/Plxf+fMD9z2e6h+d7npjxnxWlBVT7fXgeKI1sWdqLJlrm0/Gfx0psJMSnsTfYvQaE0sH6+S/dHz2n6BfheeCXCqpXl7TsvNlFPzxP6tHDgyI3yB2qic9jnjseJyhN3yQ+j/LdVH/ZgybPxG6/DM+z9dPC7mlSt52LaOrRjZ93p/1uP4VM6vtNv4kpdMyKWaA7VMPzvRKanWRZFrCLVfqj0/r+GCRV974S35qxSHieKLGrhTdag/mK1/TvF/XdrMre0xBXU18VP/37hbJ2jSjXVOmPARfrUDpTruquyXTVHqdmHymUjvxSe6aH/3SlPfGfl+dD/LCc7Dlo1s/L8yHIi2WHrfdeXXgeKBmLtE6GsF19/Oc3ytrbnC2PnF+6nC+pU777Je95SKLulKfnlynyXpPQzENuz4fM5hxTicYuhee5/wylKKOMMsrXyj8kHPCY1yUvnAAAAABJRU5ErkJggg==" width="220" height="220" alt="자기소개서 학생용 사이트 QR 코드" style="width:220px;height:220px;border-radius:12px;border:1px solid #dfe9e8;image-rendering:pixelated" />
+      <div><p class="muted">학생들이 카메라로 스캔하면 바로 작성 화면으로 이동합니다.</p><p><a href="https://charlie82-netizon.github.io/student-career-ch1/" target="_blank" rel="noopener">https://charlie82-netizon.github.io/student-career-ch1/</a></p><a class="btn btn-main" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUgAAAFIAQAAAAAab1qeAAAByUlEQVR42u2aO3bEMAwDMXm5/5WRgiLlTWVpW7jY9QfVPFIEKWG9vH4UZZRRRhnlvn4libq3JDzPxs8v4fmap7yoUjeuG+P5Ep4nPIXkwSlcbzxfwvNKSQWrCyaE0rdKC4QMWskeShf53uRwL6FgP7+E5wHPTmyzmZpHgQ/Plxf+fMD9z2e6h+d7npjxnxWlBVT7fXgeKI1sWdqLJlrm0/Gfx0psJMSnsTfYvQaE0sH6+S/dHz2n6BfheeCXCqpXl7TsvNlFPzxP6tHDgyI3yB2qic9jnjseJyhN3yQ+j/LdVH/ZgybPxG6/DM+z9dPC7mlSt52LaOrRjZ93p/1uP4VM6vtNv4kpdMyKWaA7VMPzvRKanWRZFrCLVfqj0/r+GCRV974S35qxSHieKLGrhTdag/mK1/TvF/XdrMre0xBXU18VP/37hbJ2jSjXVOmPARfrUDpTruquyXTVHqdmHymUjvxSe6aH/3SlPfGfl+dD/LCc7Dlo1s/L8yHIi2WHrfdeXXgeKBmLtE6GsF19/Oc3ytrbnC2PnF+6nC+pU777Je95SKLulKfnlynyXpPQzENuz4fM5hxTicYuhee5/wylKKOMMsrXyj8kHPCY1yUvnAAAAABJRU5ErkJggg==" download="자소서_학생접속_QR.png">⬇ QR 이미지 저장</a><p class="muted">QR만으로 작성 결과가 자동 제출되지는 않습니다. 학생 JSON 파일을 받아 불러오세요.</p></div></div>
+    </details>
+  </section>
   <div class="tools" aria-label="학급 및 학생 자료 관리">
     <label class="filter"><span>학년도</span><input id="filter-year" inputmode="numeric" type="number" min="2020" max="2100" value="2026" /></label>
+    <label class="filter"><span>지역(시도)</span><select id="filter-region"><option value="all">전체 시도</option><option value="서울특별시">서울특별시</option><option value="부산광역시">부산광역시</option><option value="대구광역시">대구광역시</option><option value="인천광역시">인천광역시</option><option value="광주광역시">광주광역시</option><option value="대전광역시">대전광역시</option><option value="울산광역시">울산광역시</option><option value="세종특별자치시">세종특별자치시</option><option value="경기도">경기도</option><option value="강원특별자치도">강원특별자치도</option><option value="충청북도">충청북도</option><option value="충청남도">충청남도</option><option value="전북특별자치도">전북특별자치도</option><option value="전라남도">전라남도</option><option value="경상북도">경상북도</option><option value="경상남도">경상남도</option><option value="제주특별자치도">제주특별자치도</option></select></label>
+    <label class="filter"><span>학교명 검색</span><input id="filter-school" type="search" maxlength="60" placeholder="모든 학교" autocomplete="off" /></label>
     <label class="filter"><span>학년</span><select id="filter-grade"><option value="all">전체 학년</option><option value="1">1학년</option><option value="2">2학년</option><option value="3">3학년</option><option value="">미지정</option></select></label>
     <label class="filter"><span>반</span><select id="filter-class"><option value="all">전체 반</option><option value="">미지정</option></select></label>
     <button type="button" class="btn btn-dark" id="import-files">⬆ 학생 JSON 여러 개 불러오기</button>
@@ -141,6 +149,8 @@
       <div id="student-workspace" hidden>
         <div class="heading-row"><div><div class="small-title">CURRENT STUDENT · 교사 확인용</div><h2 id="current-student">학생</h2></div><button class="btn btn-sm btn-warn" id="delete-student" type="button">이 학생 삭제</button></div>
         <div class="identity">
+          <div class="field"><label for="id-region">시도</label><select id="id-region"><option value="">미지정</option><option value="서울특별시">서울특별시</option><option value="부산광역시">부산광역시</option><option value="대구광역시">대구광역시</option><option value="인천광역시">인천광역시</option><option value="광주광역시">광주광역시</option><option value="대전광역시">대전광역시</option><option value="울산광역시">울산광역시</option><option value="세종특별자치시">세종특별자치시</option><option value="경기도">경기도</option><option value="강원특별자치도">강원특별자치도</option><option value="충청북도">충청북도</option><option value="충청남도">충청남도</option><option value="전북특별자치도">전북특별자치도</option><option value="전라남도">전라남도</option><option value="경상북도">경상북도</option><option value="경상남도">경상남도</option><option value="제주특별자치도">제주특별자치도</option></select></div>
+          <div class="field"><label for="id-school">학교</label><input id="id-school" maxlength="60" placeholder="학교명 입력" autocomplete="off" /></div>
           <div class="field"><label for="id-year">학년도</label><input id="id-year" type="number" min="2020" max="2100" /></div>
           <div class="field"><label for="id-grade">학년</label><select id="id-grade"><option value="">미지정</option><option value="1">1학년</option><option value="2">2학년</option><option value="3">3학년</option></select></div>
           <div class="field"><label for="id-class">반</label><input id="id-class" type="number" min="1" max="50" placeholder="예: 3" /></div>
@@ -243,12 +253,12 @@
   const blankEvidence=()=>({interest:'',activity:'',observation:'',growth:'',counsel:''});
   const blankReport=()=>({draft:'',final:'',status:'미작성',verified:false,verificationNeeded:[],evidenceUsed:[],updatedAt:'',finalizedAt:''});
   const asRecord=(d={})=>({
-    id:text(d.id,100)||makeId(),year:cleanNum(d.year,2020,2100)||String(yearNow),grade:cleanNum(d.grade,1,3),classNo:cleanNum(d.classNo,1,50),number:cleanNum(d.number,1,60),name:text(d.name,40),alias:text(d.alias,80),fileName:text(d.fileName,180),updatedAt:text(d.updatedAt,60),
+    id:text(d.id,100)||makeId(),region:text(d.region,30),school:text(d.school,60),year:cleanNum(d.year,2020,2100)||String(yearNow),grade:cleanNum(d.grade,1,3),classNo:cleanNum(d.classNo,1,50),number:cleanNum(d.number,1,60),name:text(d.name,40),alias:text(d.alias,80),fileName:text(d.fileName,180),updatedAt:text(d.updatedAt,60),
     source:{high:Array.isArray(d.source?.high)?d.source.high.slice(0,4).map(x=>text(x,16000)):[],univ:Array.isArray(d.source?.univ)?d.source.univ.slice(0,5).map(x=>text(x,16000)):[]},
     evidence:Object.fromEntries(Object.keys(blankEvidence()).map(k=>[k,text(d.evidence?.[k],9000)])),
     report:{...blankReport(),draft:text(d.report?.draft,20000),final:text(d.report?.final,20000),status:['미작성','검토 중','확정'].includes(d.report?.status)?d.report.status:'미작성',verified:d.report?.verified===true,verificationNeeded:Array.isArray(d.report?.verificationNeeded)?d.report.verificationNeeded.slice(0,15).map(x=>text(x,300)):[],evidenceUsed:Array.isArray(d.report?.evidenceUsed)?d.report.evidenceUsed.slice(0,15).map(x=>text(x,300)):[],updatedAt:text(d.report?.updatedAt,60),finalizedAt:text(d.report?.finalizedAt,60)}
   });
-  const filterInfo=()=>({year:cleanNum($('filter-year').value,2020,2100)||String(yearNow),grade:$('filter-grade').value,cls:$('filter-class').value});
+  const filterInfo=()=>({year:cleanNum($('filter-year').value,2020,2100)||String(yearNow),region:$('filter-region').value,school:$('filter-school').value.trim(),grade:$('filter-grade').value,cls:$('filter-class').value});
   const getRecord=()=>records.find(r=>r.id===selectedId)||null;
   const countChars=s=>Array.from(s).length;
   const stamp=()=>new Date().toISOString();
@@ -266,16 +276,16 @@
     if(!settings.endpoint){try{const old=JSON.parse(localStorage.getItem(OLD_REVIEW_KEY)||'null');if(old?.settings?.aiEndpoint)settings.endpoint=old.settings.aiEndpoint;}catch(e){}}
     $('filter-year').value=records[0]?.year||String(yearNow);
   }
-  function filtered(){const f=filterInfo();return records.filter(r=>r.year===f.year&&(f.grade==='all'||r.grade===f.grade)&&(f.cls==='all'||r.classNo===f.cls));}
-  function sortable(records){return [...records].sort((a,b)=>Number(a.year)-Number(b.year)||Number(a.grade||99)-Number(b.grade||99)||Number(a.classNo||99)-Number(b.classNo||99)||Number(a.number||99)-Number(b.number||99)||a.name.localeCompare(b.name,'ko'));}
+  function filtered(){const f=filterInfo();return records.filter(r=>r.year===f.year&&(f.region==='all'||r.region===f.region)&&(!f.school||r.school.includes(f.school))&&(f.grade==='all'||r.grade===f.grade)&&(f.cls==='all'||r.classNo===f.cls));}
+  function sortable(records){return [...records].sort((a,b)=>Number(a.year)-Number(b.year)||(a.region||'').localeCompare(b.region||'','ko')||(a.school||'').localeCompare(b.school||'','ko')||Number(a.grade||99)-Number(b.grade||99)||Number(a.classNo||99)-Number(b.classNo||99)||Number(a.number||99)-Number(b.number||99)||a.name.localeCompare(b.name,'ko'));}
   function updateClassOptions(){
     const desired=$('filter-class').value;
-    const year=filterInfo().year,grade=$('filter-grade').value;
-    const classes=[...new Set(records.filter(r=>r.year===year&&(grade==='all'||r.grade===grade)).map(r=>r.classNo).filter(Boolean))].sort((a,b)=>Number(a)-Number(b));
+    const f=filterInfo(),year=f.year,grade=f.grade;
+    const classes=[...new Set(records.filter(r=>r.year===year&&(f.region==='all'||r.region===f.region)&&(!f.school||r.school.includes(f.school))&&(grade==='all'||r.grade===grade)).map(r=>r.classNo).filter(Boolean))].sort((a,b)=>Number(a)-Number(b));
     $('filter-class').innerHTML='<option value="all">전체 반</option><option value="">미지정</option>'+classes.map(n=>`<option value="${n}">${n}반</option>`).join('');
     $('filter-class').value=desired==='all'||desired===''||classes.includes(desired)?desired:'all';
   }
-  function formatIdentity(r){return [r.grade?r.grade+'학년':'학년 미정',r.classNo?r.classNo+'반':'반 미정',r.number?r.number+'번':'번호 미정'].join(' · ');}
+  function formatIdentity(r){return [r.region||'시도 미정',r.school||'학교 미정',r.grade?r.grade+'학년':'학년 미정',r.classNo?r.classNo+'반':'반 미정',r.number?r.number+'번':'번호 미정'].join(' · ');}
   function recordName(r){return r.name||r.alias||'이름 미입력';}
   function renderRoster(){
     updateClassOptions();const items=sortable(filtered());
@@ -295,7 +305,7 @@
   function showStudent(){
     const r=getRecord();$('send-confirm').checked=false;$('student-workspace').hidden=!r;$('no-selection').hidden=!!r;if(!r)return;
     $('current-student').textContent=recordName(r);
-    for(const [k,id] of [['year','id-year'],['grade','id-grade'],['classNo','id-class'],['number','id-number'],['name','id-name']])$(id).value=r[k];
+    for(const [k,id] of [['region','id-region'],['school','id-school'],['year','id-year'],['grade','id-grade'],['classNo','id-class'],['number','id-number'],['name','id-name']])$(id).value=r[k];
     $('student-source-meta').textContent='학생이 입력한 식별 표시: '+(r.alias||'없음')+' · 자료 파일: '+(r.fileName||'직접 추가')+' · 최근 수정: '+fmtTime(r.updatedAt);
     for(const k of Object.keys(blankEvidence()))$('e-'+k).value=r.evidence[k];
     $('record-draft').value=r.report.draft;$('record-final').value=r.report.final;
@@ -326,14 +336,16 @@
   function touch(r,sensitive=false){r.updatedAt=stamp();if(sensitive&&r.report.status==='확정'){r.report.status='검토 중';r.report.verified=false;$('evidence-verified').checked=false;}scheduleSave();renderRecordMeta();}
   function touchReport(r){r.report.updatedAt=stamp();r.report.status='검토 중';r.report.verified=false;$('evidence-verified').checked=false;touch(r);}
   function setIdentity(key,val){const r=getRecord();if(!r)return;
+    if(key==='region')val=text(val,30);
+    if(key==='school')val=text(val.trim(),60);
     if(key==='year')val=cleanNum(val,2020,2100)||r.year;
     if(key==='grade')val=cleanNum(val,1,3);
     if(key==='classNo')val=cleanNum(val,1,50);
     if(key==='number')val=cleanNum(val,1,60);
     if(key==='name')val=text(val,40);
     const old=r[key];r[key]=val;
-    if(r.grade&&r.classNo&&r.number&&records.some(x=>x.id!==r.id&&x.year===r.year&&x.grade===r.grade&&x.classNo===r.classNo&&x.number===r.number)){
-      r[key]=old;const map={year:'id-year',grade:'id-grade',classNo:'id-class',number:'id-number',name:'id-name'};$(map[key]).value=old;
+    if(r.grade&&r.classNo&&r.number&&records.some(x=>x.id!==r.id&&x.year===r.year&&x.region===r.region&&x.school===r.school&&x.grade===r.grade&&x.classNo===r.classNo&&x.number===r.number)){
+      r[key]=old;const map={region:'id-region',school:'id-school',year:'id-year',grade:'id-grade',classNo:'id-class',number:'id-number',name:'id-name'};$(map[key]).value=old;
       toast('같은 학년도·학년·반·번호를 가진 학생이 이미 있습니다. 번호를 확인하세요.');return;
     }
     touch(r);$('current-student').textContent=recordName(r);renderRoster();
@@ -343,7 +355,8 @@
     if(!data?.data||!Array.isArray(data.data.high)||!Array.isArray(data.data.univ))throw new Error('자소서 실험실 학생용 JSON이 아닙니다.');
     const extract=item=>text(item?.draft||(Array.isArray(item?.memo)?item.memo.filter(x=>typeof x==='string'&&x.trim()).join(' / '):''),16000);
     const source={high:data.data.high.slice(0,4).map(extract),univ:data.data.univ.slice(0,5).map(extract)};
-    return {alias:text(data.author,80),source};
+    const p=data.profile&&typeof data.profile==='object'?data.profile:{};
+    return {alias:text(data.author,80),source,profile:{region:text(p.region,30),school:text(p.school,60),grade:cleanNum(p.grade,1,3),classNo:cleanNum(p.classNo,1,50),number:cleanNum(p.number,1,60)}};
   }
   function parseIdentity(s){const raw=String(s||'');let grade='',cls='',num='';
     const gm=raw.match(/([1-3])\s*학년/),cm=raw.match(/(\d{1,2})\s*반/),nm=raw.match(/(\d{1,2})\s*번/);
@@ -353,17 +366,19 @@
   }
   function importOne(data,fileName){
     const v=unpackStudent(data);const ids=parseIdentity(v.alias+' '+fileName);const year=filterInfo().year;
-    const grade=ids.grade||($('filter-grade').value==='all'?'':$('filter-grade').value);
-    const cls=ids.cls||($('filter-class').value==='all'?'':$('filter-class').value);
+    const region=v.profile.region,school=v.profile.school;
+    const grade=v.profile.grade||ids.grade||($('filter-grade').value==='all'?'':$('filter-grade').value);
+    const cls=v.profile.classNo||ids.cls||($('filter-class').value==='all'?'':$('filter-class').value);
+    const num=v.profile.number||ids.num;
     let existing=null;
-    if(grade&&cls&&ids.num){existing=records.find(r=>r.year===year&&r.grade===grade&&r.classNo===cls&&r.number===ids.num);}
+    if(grade&&cls&&num){existing=records.find(r=>r.year===year&&r.region===region&&r.school===school&&r.grade===grade&&r.classNo===cls&&r.number===num);}
     if(existing){
       if(!window.confirm(`${existing.grade}학년 ${existing.classNo}반 ${existing.number}번의 자기소개서 자료를 최신 파일로 갱신할까요?\n기존 생기부 초안과 교사 근거는 유지되므로 변경 사항을 다시 검토해야 합니다.`))return null;
-      existing.source=v.source;existing.alias=v.alias;existing.fileName=fileName;
+      existing.source=v.source;existing.alias=v.alias;existing.region=region;existing.school=school;existing.fileName=fileName;
       existing.report.verified=false;existing.report.status=existing.report.final.trim()?'검토 중':'미작성';existing.report.verificationNeeded=['학생 작성본이 바뀌었으므로 교사 확인 내용을 재검토해야 합니다.'];
       existing.updatedAt=stamp();selectedId=existing.id;return 'updated';
     }
-    const r=asRecord({id:makeId(),year,grade,classNo:cls,number:ids.num,alias:v.alias,fileName,source:v.source});
+    const r=asRecord({id:makeId(),year,region,school,grade,classNo:cls,number:num,alias:v.alias,fileName,source:v.source});
     records.push(r);selectedId=r.id;return 'new';
   }
   async function importFiles(files){if(!files.length)return;let added=0,updated=0,failed=[];
@@ -371,7 +386,7 @@
       try{if(file.size>3*1024*1024)throw new Error('3MB 초과');const json=JSON.parse(await file.text());const result=importOne(json,file.name);if(result==='new')added++;if(result==='updated')updated++;}
       catch(error){failed.push(`${file.name}: ${error.message}`);}
     }
-    if(selectedId){const last=getRecord();if(last){$('filter-year').value=last.year;if($('filter-grade').value!=='all'&&$('filter-grade').value!==last.grade)$('filter-grade').value='all';$('filter-class').value='all';}}
+    if(selectedId){const last=getRecord();if(last){$('filter-year').value=last.year;$('filter-region').value='all';$('filter-school').value='';if($('filter-grade').value!=='all'&&$('filter-grade').value!==last.grade)$('filter-grade').value='all';$('filter-class').value='all';}}
     save();renderRoster();showStudent();toast(`새 학생 ${added}명, 기존 학생 갱신 ${updated}명${failed.length?', 읽기 실패 '+failed.length+'개':''}`);
     if(failed.length)window.alert('불러오지 못한 파일:\n'+failed.join('\n').slice(0,1500));
   }
@@ -380,7 +395,7 @@
       const result=importOne(JSON.parse(raw),'이 브라우저의 작성본');if(result){save();renderRoster();showStudent();toast('이 브라우저의 학생 자기소개서를 참고 자료로 가져왔습니다.');}}
     catch(e){toast('기존 학생 데이터를 불러오지 못했습니다.');}
   }
-  function addStudent(){const f=filterInfo();const r=asRecord({year:f.year,grade:f.grade==='all'?'':f.grade,classNo:f.cls==='all'?'':f.cls,id:makeId()});records.push(r);selectedId=r.id;save();renderRoster();showStudent();toast('학생을 추가했습니다. 학년·반·번호를 입력해 주세요.');}
+  function addStudent(){const f=filterInfo();const r=asRecord({year:f.year,region:f.region==='all'?'':f.region,school:f.school,grade:f.grade==='all'?'':f.grade,classNo:f.cls==='all'?'':f.cls,id:makeId()});records.push(r);selectedId=r.id;save();renderRoster();showStudent();toast('학생을 추가했습니다. 학년·반·번호를 입력해 주세요.');}
   function removeStudent(){const r=getRecord();if(!r)return;if(!window.confirm(`${recordName(r)}의 학생 답안·교사 기록을 이 브라우저에서 모두 삭제할까요? 삭제한 자료는 백업 없이 복원할 수 없습니다.`))return;records=records.filter(x=>x.id!==r.id);selectedId=null;save();renderRoster();showStudent();toast('학생 기록을 삭제했습니다.');}
   function verifiedEvidence(){const r=getRecord();return !!r&&(r.evidence.activity.trim()||r.evidence.observation.trim()||r.evidence.counsel.trim());}
   function ensureEvidence(){if(verifiedEvidence())return true;setTab('evidence');toast('먼저 교사가 확인한 실제 활동·관찰·상담 근거를 입력해 주세요.');return false;}
@@ -448,22 +463,22 @@
   const xmlEscape=s=>String(s??'').replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\uFFFE\uFFFF]/g,'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');
   const excelCol=n=>{let s='';for(let x=n+1;x;x=Math.floor((x-1)/26))s=String.fromCharCode(65+(x-1)%26)+s;return s;};
   function workbookCells(rows,title,meta){
-    const widths=[12,9,9,9,16,22,81,13,11,22];
+    const widths=[12,17,27,9,9,9,16,22,81,13,11,22];
     const cols=widths.map((w,i)=>`<col min="${i+1}" max="${i+1}" width="${w}" customWidth="1"/>`).join('');
     let xmlRows='';
     const mkCell=(v,r,c,style)=>{
-      const isNumber=r>=5&&[0,1,2,3,8].includes(c)&&/^\d+$/.test(String(v??''));
+      const isNumber=r>=5&&[0,3,4,5,10].includes(c)&&/^\d+$/.test(String(v??''));
       return isNumber?`<c r="${excelCol(c)}${r}" t="n" s="${style}"><v>${Number(v)}</v></c>`:
         `<c r="${excelCol(c)}${r}" t="inlineStr" s="${style}"><is><t xml:space="preserve">${xmlEscape(v)}</t></is></c>`;
     };
     xmlRows+=`<row r="1" ht="32" customHeight="1">${mkCell(title,1,0,1)}</row>`;
     xmlRows+=`<row r="2" ht="23" customHeight="1">${mkCell(meta,2,0,3)}</row>`;
-    xmlRows+=`<row r="4" ht="29" customHeight="1">${['학년도','학년','반','번호','이름','진로희망 분야','진로활동 특기사항 (교사 확정본)','작성 상태','글자 수','최종 수정일'].map((h,i)=>mkCell(h,4,i,2)).join('')}</row>`;
+    xmlRows+=`<row r="4" ht="29" customHeight="1">${['학년도','시도','학교','학년','반','번호','이름','진로희망 분야','진로활동 특기사항 (교사 확정본)','작성 상태','글자 수','최종 수정일'].map((h,i)=>mkCell(h,4,i,2)).join('')}</row>`;
     for(let i=0;i<rows.length;i++){
-      const vals=rows[i],line=i+5;xmlRows+=`<row r="${line}" ht="78" customHeight="1">${vals.map((v,c)=>mkCell(v,line,c,c===6?4:3)).join('')}</row>`;
+      const vals=rows[i],line=i+5;xmlRows+=`<row r="${line}" ht="78" customHeight="1">${vals.map((v,c)=>mkCell(v,line,c,c===8?4:3)).join('')}</row>`;
     }
     const end=rows.length+4;
-    return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0"><pane ySplit="4" topLeftCell="A5" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><sheetFormatPr defaultRowHeight="18"/><cols>${cols}</cols><sheetData>${xmlRows}</sheetData><mergeCells count="2"><mergeCell ref="A1:J1"/><mergeCell ref="A2:J2"/></mergeCells>${rows.length?`<autoFilter ref="A4:J${end}"/>`:''}<pageMargins left="0.3" right="0.3" top="0.4" bottom="0.4" header="0.2" footer="0.2"/></worksheet>`;
+    return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0"><pane ySplit="4" topLeftCell="A5" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><sheetFormatPr defaultRowHeight="18"/><cols>${cols}</cols><sheetData>${xmlRows}</sheetData><mergeCells count="2"><mergeCell ref="A1:L1"/><mergeCell ref="A2:L2"/></mergeCells>${rows.length?`<autoFilter ref="A4:L${end}"/>`:''}<pageMargins left="0.3" right="0.3" top="0.4" bottom="0.4" header="0.2" footer="0.2"/></worksheet>`;
   }
   const excelStyles=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="3"><font><sz val="10"/><name val="Malgun Gothic"/></font><font><b/><sz val="16"/><color rgb="FFFFFFFF"/><name val="Malgun Gothic"/></font><font><b/><sz val="10"/><color rgb="FFFFFFFF"/><name val="Malgun Gothic"/></font></fonts><fills count="4"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF143E47"/><bgColor indexed="64"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FF0B756E"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border><border><left style="thin"><color rgb="FFE3EAEB"/></left><right style="thin"><color rgb="FFE3EAEB"/></right><top style="thin"><color rgb="FFE3EAEB"/></top><bottom style="thin"><color rgb="FFE3EAEB"/></bottom><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="5"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFill="1" applyFont="1" applyAlignment="1"><alignment vertical="center" indent="1"/></xf><xf numFmtId="0" fontId="2" fillId="3" borderId="0" xfId="0" applyFill="1" applyFont="1" applyAlignment="1"><alignment vertical="center" horizontal="center" wrapText="1"/></xf><xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyAlignment="1"><alignment vertical="center" horizontal="center" wrapText="1"/></xf><xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyAlignment="1"><alignment vertical="center" wrapText="1"/></xf></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`;
   function makeZip(files){
@@ -491,11 +506,11 @@
     for(const sheet of sheets){entries.push({name:`xl/worksheets/sheet${sheet.num}.xml`,data:workbookCells(sheet.rows,sheet.title,sheet.meta)});}
     return makeZip(entries);
   }
-  function recordRows(items){return sortable(items).map(r=>[r.year,r.grade,r.classNo,r.number,r.name,r.evidence.interest,r.report.final,r.report.status,String(countChars(r.report.final)),r.report.updatedAt?fmtTime(r.report.updatedAt):'']);}
+  function recordRows(items){return sortable(items).map(r=>[r.year,r.region,r.school,r.grade,r.classNo,r.number,r.name,r.evidence.interest,r.report.final,r.report.status,String(countChars(r.report.final)),r.report.updatedAt?fmtTime(r.report.updatedAt):'']);}
   function onlyEligible(items){return items.filter(r=>!$('only-finalized').checked||r.report.status==='확정');}
-  function groupName(r){return [r.year,r.grade?r.grade+'학년':'학년 미정',r.classNo?r.classNo+'반':'반 미정'].join(' ');}
+  function groupName(r){return [r.year,r.region||'시도미정',r.school||'학교미정',r.grade?r.grade+'학년':'학년 미정',r.classNo?r.classNo+'반':'반 미정'].join(' ');}
   function excelFiltered(){const current=onlyEligible(filtered());if(!current.length){toast('내보낼 기록이 없습니다. 필터 또는 “확정된 기록만” 옵션을 확인해 주세요.');return;}
-    const f=filterInfo();const label=(f.grade==='all'?'전체학년':(f.grade||'미정')+'학년')+'_'+(f.cls==='all'?'전체반':(f.cls||'미정')+'반');const title=f.year+'학년도 진로활동 특기사항 · '+label;
+    const f=filterInfo();const label=(f.region==='all'?'전체시도':f.region)+'_'+(f.school||'전체학교')+'_'+(f.grade==='all'?'전체학년':(f.grade||'미정')+'학년')+'_'+(f.cls==='all'?'전체반':(f.cls||'미정')+'반');const title=f.year+'학년도 진로활동 특기사항 · '+label;
     const blob=workbook([{name:'선택학급',title,meta:`교사 검토용 출력 · 학생 ${current.length}명 · 추출 ${new Date().toLocaleDateString('ko-KR')} · 학생 원문/교사 메모 제외`,rows:recordRows(current)}]);
     download(blob,sanitizeFilename('생기부_진로활동_'+f.year+'_'+label)+'.xlsx');toast(`${current.length}명의 생기부 기록을 Excel 파일로 저장했습니다.`);
   }
@@ -516,6 +531,8 @@
   }
   function bind(){
     $('filter-year').addEventListener('change',()=>{selectedId=null;renderRoster();showStudent();});
+    $('filter-region').addEventListener('change',()=>{$('filter-class').value='all';selectedId=null;renderRoster();showStudent();});
+    $('filter-school').addEventListener('input',()=>{$('filter-class').value='all';selectedId=null;renderRoster();showStudent();});
     $('filter-grade').addEventListener('change',()=>{$('filter-class').value='all';selectedId=null;renderRoster();showStudent();});
     $('filter-class').addEventListener('change',()=>{selectedId=null;renderRoster();showStudent();});
     $('import-files').addEventListener('click',()=>$('file-input').click());
@@ -523,7 +540,7 @@
     $('import-current').addEventListener('click',importCurrent);
     $('add-student').addEventListener('click',addStudent);
     $('delete-student').addEventListener('click',removeStudent);
-    for(const [key,id] of [['year','id-year'],['grade','id-grade'],['classNo','id-class'],['number','id-number'],['name','id-name']])$(id).addEventListener('change',e=>setIdentity(key,e.target.value));
+    for(const [key,id] of [['region','id-region'],['school','id-school'],['year','id-year'],['grade','id-grade'],['classNo','id-class'],['number','id-number'],['name','id-name']])$(id).addEventListener('change',e=>setIdentity(key,e.target.value));
     document.querySelectorAll('[data-tab]').forEach(btn=>btn.addEventListener('click',()=>setTab(btn.dataset.tab)));
     for(const k of Object.keys(blankEvidence()))$('e-'+k).addEventListener('input',e=>{const r=getRecord();if(!r)return;r.evidence[k]=e.target.value;touch(r,true);renderRoster();renderRecordMeta();});
     $('record-draft').addEventListener('input',e=>{const r=getRecord();if(!r)return;r.report.draft=e.target.value;touchReport(r);});
