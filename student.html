@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#18334b" name="theme-color"/>
+<title>자소서 실험실 | 학생 전용 글쓰기</title>
+<meta content="중학생 자기소개서 작성 연습과 교사의 문장별 첨삭, 맞춤 지도 기준, AI 피드백을 지원하는 수업용 웹앱" name="description"/>
+<style>
+    :root{
+      --ink:#182a3a; --ink-sub:#536577; --muted:#7e8b9a; --line:#e2e9ed;
+      --teal:#087f73; --teal-dark:#00675e; --teal-light:#e9f8f4;
+      --sand:#fff7e8; --amber:#b96b1b; --bg:#f5f8fa; --white:#fff;
+      --shadow:0 8px 35px rgba(24,42,58,.045);
+      font-family: "Pretendard", "SUIT", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);line-height:1.52;overflow-x:hidden}
+    button,input,textarea{font:inherit}
+    button{cursor:pointer}
+    button:disabled{opacity:.5;cursor:not-allowed}
+    button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #8cd8cd;outline-offset:3px}
+    .app-wrap{width:min(1480px,calc(100% - 44px));margin:0 auto}
+    .topbar{background:#fff;border-bottom:1px solid var(--line)}
+    .topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:20px}
+    .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit}
+    .brand-mark{width:40px;height:40px;display:grid;place-items:center;background:#d4f2e9;border-radius:12px;font-size:23px;color:#087f73;font-weight:800}
+    .brand-t{font-size:18px;font-weight:850;letter-spacing:-.6px}
+    .brand-sub{display:block;font-size:11px;font-weight:650;color:var(--muted);letter-spacing:.2px}
+    .top-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .secure{font-size:12px;color:var(--ink-sub);background:#f0f5f6;border-radius:99px;padding:7px 11px}
+    .btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:11px;padding:10px 13px;font-weight:750;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:background .18s,border-color .18s,transform .18s;text-align:center;text-decoration:none}
+    .btn:hover{background:#f4f8f8;border-color:#c8d6d8}
+    .btn:active{transform:translateY(1px)}
+    .btn-primary{border-color:var(--teal);background:var(--teal);color:white}
+    .btn-primary:hover{background:var(--teal-dark);border-color:var(--teal-dark)}
+    .btn-soft{background:var(--teal-light);border-color:#d4ebe5;color:var(--teal-dark)}
+    .btn-soft:hover{background:#d9f1eb}
+    .btn-warn{color:#9a4c4c;border-color:#f0d8d8;background:#fffafa}
+    .btn-small{padding:8px 11px;font-size:12px}
+    .hero{padding:31px 0 19px;display:flex;justify-content:space-between;gap:25px;align-items:flex-end}
+    .eyebrow{font-size:12px;letter-spacing:1px;text-transform:uppercase;font-weight:850;color:var(--teal);margin:0 0 8px}
+    h1{font-size:clamp(25px,3vw,39px);letter-spacing:-1.4px;line-height:1.25;margin:0 0 9px;font-weight:870}
+    h1 span{color:var(--teal)}
+    .hero-desc{margin:0;color:var(--ink-sub);font-size:14px}
+    .mode-switch{background:#e8eff1;padding:5px;display:flex;gap:4px;border-radius:14px;flex-shrink:0;max-width:100%}
+    .mode-btn{border:0;background:transparent;border-radius:10px;color:#617585;padding:12px 18px;font-size:14px;font-weight:850;white-space:nowrap}
+    .mode-btn[aria-selected="true"]{background:#fff;color:var(--teal-dark);box-shadow:0 2px 10px #294d6020}
+    .student-bar{padding:14px 18px;margin-bottom:17px;border:1px solid var(--line);border-radius:14px;background:#fff;display:flex;align-items:center;flex-wrap:wrap;justify-content:space-between;gap:14px}
+    .student-left{display:flex;align-items:center;flex-wrap:wrap;gap:12px}
+    .label-small{font-size:12px;color:var(--ink-sub);font-weight:750}
+    .student-input{border:1px solid #dbe4e8;padding:9px 12px;width:min(240px,100%);border-radius:9px;background:#fcfefe;font-size:13px;color:var(--ink)}
+    .autosave{font-size:12px;color:#647d84;display:flex;align-items:center;gap:6px}
+    .autosave-dot{height:8px;width:8px;flex-shrink:0;border-radius:50%;background:#29a58d}
+    .privacy{font-size:11px;color:var(--muted)}
+    .layout{display:grid;grid-template-columns:248px minmax(0,1fr) 275px;gap:17px;align-items:start}
+    .panel{border:1px solid var(--line);background:#fff;border-radius:17px;box-shadow:var(--shadow)}
+    .sidebar,.feedback{padding:19px}
+    .section-label{font-size:12px;color:var(--muted);font-weight:850;letter-spacing:.5px;margin-bottom:10px}
+    .progress-meta{display:flex;align-items:baseline;justify-content:space-between;gap:5px;margin-bottom:8px}
+    .progress-num{font-size:28px;font-weight:850;line-height:1;color:var(--ink)}
+    .progress-num span{font-size:14px;font-weight:700;color:var(--muted)}
+    .progress-name{font-size:12px;color:var(--ink-sub)}
+    .progress-track{height:9px;background:#ecf1f2;border-radius:99px;overflow:hidden}
+    .progress-fill{height:100%;width:0;background:linear-gradient(90deg,#159c8a,#6ed3aa);border-radius:99px;transition:width .3s}
+    .question-list{display:flex;flex-direction:column;gap:7px;margin-top:19px}
+    .q-nav{width:100%;text-align:left;border:1px solid transparent;background:#fff;padding:11px 10px;border-radius:10px;display:flex;align-items:center;gap:10px;color:var(--ink)}
+    .q-nav:hover{background:#f4f9f8}
+    .q-nav.is-active{background:var(--teal-light);border-color:#c8e8de}
+    .q-no{border-radius:9px;display:grid;place-items:center;width:32px;height:32px;font-size:12px;font-weight:850;background:#f0f3f5;color:#768896;flex-shrink:0}
+    .q-nav.is-active .q-no{background:var(--teal);color:#fff}
+    .q-nav.is-done:not(.is-active) .q-no{background:#d6f3e9;color:var(--teal-dark)}
+    .q-nav-body{min-width:0}
+    .q-nav-title{font-weight:850;font-size:13px;display:block;margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .q-nav-state{font-size:11px;color:#8594a0;display:block}
+    .sidebar-tip{margin-top:20px;border-top:1px solid var(--line);padding-top:17px;font-size:12px;color:var(--ink-sub)}
+    .sidebar-tip strong{color:var(--teal-dark)}
+    .sidebar-tip button{margin-top:12px;width:100%}
+    .editor{padding:25px 30px 26px;min-width:0}
+    .question-kicker{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+    .chip{border-radius:99px;background:#f0f3f5;padding:5px 10px;font-size:11px;font-weight:800;color:#667d86}
+    .chip-green{background:var(--teal-light);color:var(--teal-dark)}
+    h2{font-size:24px;line-height:1.35;letter-spacing:-.7px;margin:0 0 13px;font-weight:850;overflow-wrap:anywhere}
+    .question-desc{font-size:14px;color:var(--ink-sub);margin:0 0 23px}
+    .guide-box{border:1px solid #d7ece7;background:#f2fbf7;border-radius:12px;padding:14px 17px;margin-bottom:24px}
+    .guide-box-title{font-size:12px;font-weight:850;color:var(--teal-dark);margin-bottom:5px}
+    .guide-box p{font-size:13px;margin:0;color:#486a67}
+    .step-head{display:flex;align-items:center;gap:10px;margin:0 0 12px}
+    .step-num{width:27px;height:27px;background:var(--ink);color:white;display:grid;place-items:center;border-radius:9px;font-weight:850;font-size:13px;flex-shrink:0}
+    .step-head h3{font-size:16px;font-weight:850;margin:0;letter-spacing:-.3px}
+    .step-sub{color:#85939f;font-size:12px;font-weight:650;margin-left:auto}
+    .memo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .memo-card{background:#fafcfd;border:1px solid #e4ebef;border-radius:11px;padding:12px;min-width:0}
+    .memo-head{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:850;margin-bottom:5px}
+    .mini-number{color:var(--teal-dark)}
+    .memo-prompt{font-size:11px;color:var(--muted);line-height:1.4;min-height:46px;margin-bottom:9px}
+    .memo-card textarea{display:block;width:100%;min-height:102px;resize:vertical;padding:10px;background:#fff;border:1px solid #dfe8ec;border-radius:8px;font-size:12px;line-height:1.6;color:var(--ink)}
+    .compose-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px;margin-bottom:27px}
+    .subhelp{font-size:12px;color:var(--muted)}
+    .write-head{margin-top:0}
+    .draft-field{width:100%;min-height:255px;border:1px solid #d7e3e9;background:#fff;border-radius:12px;resize:vertical;padding:17px 18px;font-size:14px;color:var(--ink);line-height:1.9;letter-spacing:-.1px}
+    .draft-field:focus{border-color:#8bcdc1;outline:3px solid #e2f5ef}
+    .write-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;color:var(--muted);font-size:12px;margin-top:11px;flex-wrap:wrap}
+    .example{background:var(--sand);border-radius:12px;border:1px solid #f4e9d2;padding:12px 14px;margin-top:17px;font-size:12px;color:#7b632f}
+    .editor-nav{margin-top:26px;padding-top:19px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px}
+    .feedback{position:sticky;top:18px}
+    .feedback-title{font-size:17px;font-weight:850;letter-spacing:-.4px;margin:0 0 4px}
+    .feedback-intro{font-size:12px;color:var(--muted);margin:0 0 17px}
+    .feedback-progress{background:#f2f7f7;border-radius:12px;padding:14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+    .feedback-count{font-size:24px;color:var(--teal-dark);font-weight:880}
+    .feedback-count span{font-size:12px;color:#819099}
+    .feedback-caption{font-size:12px;color:#6d818b}
+    .feedback-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
+    .feedback-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:#687e8c}
+    .tick{height:20px;width:20px;border-radius:7px;background:#eef2f4;color:#8194a1;display:grid;place-items:center;flex-shrink:0;font-size:12px;font-weight:900}
+    .feedback-item.passed{color:#286b60}
+    .feedback-item.passed .tick{background:#d6f4e9;color:#087f73}
+    .feedback-item b{display:block;font-size:12px;color:var(--ink);margin-bottom:2px}
+    .feedback-item small{display:block;font-size:11px;line-height:1.5}
+    .feedback-note{font-size:11px;line-height:1.6;color:#7f8e97;border-top:1px solid var(--line);padding-top:14px;margin:17px 0 0}
+    .next-tip{margin-top:16px;padding:12px;border-radius:11px;background:#f8fafb;border:1px solid #e9edef;color:#516777;font-size:12px}
+    .next-tip b{color:var(--ink);display:block;margin-bottom:4px}
+    .export{margin-top:18px;padding:22px 25px 25px}
+    .export-main{display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .export h3{font-size:19px;letter-spacing:-.5px;margin:0 0 4px}
+    .export p{color:var(--ink-sub);font-size:12px;margin:0}
+    .export-buttons{display:flex;gap:8px;flex-wrap:wrap}
+    .export-sub{margin-top:17px;padding-top:16px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .export-sub-help{font-size:11px;color:var(--muted);margin-left:auto}
+    .footnote{font-size:11px;line-height:1.65;color:#8896a0;margin:17px 0 30px;text-align:center}
+    .modal-layer{position:fixed;inset:0;z-index:100;background:rgba(21,42,55,.55);display:none;align-items:center;justify-content:center;padding:20px}
+    .modal-layer.is-open{display:flex}
+    .modal{background:white;border-radius:16px;box-shadow:0 23px 80px #0919234f;width:min(830px,100%);max-height:min(90vh,900px);display:flex;flex-direction:column;overflow:hidden}
+    .modal-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 23px;border-bottom:1px solid var(--line)}
+    .modal-heading h3{font-size:18px;margin:0;letter-spacing:-.5px}
+    .modal-body{padding:20px 27px;overflow:auto}
+    .modal-footer{border-top:1px solid var(--line);padding:15px 23px;display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap}
+    .preview-meta{color:#61747e;font-size:12px;border-bottom:2px solid #c9d3d6;padding-bottom:14px}
+    .preview-item{padding:20px 0;border-bottom:1px solid #e2e8ea;break-inside:avoid}
+    .preview-item h4{font-size:15px;margin:0 0 8px;letter-spacing:-.3px}
+    .preview-item p{white-space:pre-wrap;font-size:13px;line-height:1.9;color:#253b49;margin:0;word-break:break-word}
+    .empty-answer{color:#96a3ab!important;font-style:italic}
+    .teacher-p{font-size:13px;color:#546979;line-height:1.8;margin:0 0 18px}
+    .teacher-stage{border:1px solid var(--line);padding:14px 17px;border-radius:11px;margin:9px 0;font-size:13px}
+    .teacher-stage b{color:var(--teal-dark)}
+    .teacher-stage p{margin:4px 0 0;color:var(--ink-sub);line-height:1.7}
+    .teacher-compare{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:17px}
+    .teacher-compare>div{background:#f9fbfb;border:1px solid var(--line);border-radius:10px;padding:13px;font-size:12px;line-height:1.7}
+    .teacher-compare strong{display:block;margin-bottom:6px}
+    .teacher-compare .good{background:#f3fbf7;border-color:#d7eee3}
+    .teacher-compare .good strong{color:var(--teal-dark)}
+    .teacher-compare .bad strong{color:#ad6a55}
+    .toast{z-index:130;position:fixed;bottom:24px;left:50%;transform:translate(-50%,15px);opacity:0;pointer-events:none;background:#203d49;color:white;padding:11px 17px;border-radius:10px;box-shadow:0 10px 38px #0b263d34;font-size:13px;max-width:90vw;transition:opacity .2s,transform .2s}
+    .toast.is-visible{transform:translate(-50%,0);opacity:1}
+    [hidden]{display:none!important}
+    @media(max-width:1170px){
+      .layout{grid-template-columns:220px minmax(0,1fr)}
+      .feedback{grid-column:2;position:static}
+      .feedback-list{display:grid;grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:760px){
+      .app-wrap{width:min(100% - 24px,650px)}
+      .topbar-inner{align-items:start}
+      .secure{display:none}
+      .hero{padding-top:23px;flex-direction:column;align-items:stretch}
+      .mode-switch{width:100%}
+      .mode-btn{flex:1;padding:11px 6px;font-size:12px}
+      .layout{display:flex;flex-direction:column}
+      .layout>*{width:100%}
+      .sidebar{padding:15px}
+      .question-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:13px}
+      .sidebar-tip{margin-top:15px}
+      .editor{padding:20px 16px}
+      .memo-grid{grid-template-columns:1fr}
+      .memo-card textarea{min-height:68px}
+      .memo-prompt{min-height:0}
+      .step-sub{display:none}
+      .feedback-list{grid-template-columns:1fr 1fr}
+      .feedback{grid-column:auto}
+      .student-bar{align-items:stretch}
+      .student-left{width:100%}
+      .student-input{flex:1}
+      .export{padding:18px 16px}
+      .export-buttons{width:100%}
+      .export-buttons .btn{flex:1}
+      .export-sub-help{margin-left:0;width:100%}
+      .teacher-compare{grid-template-columns:1fr}
+    }
+    @media(max-width:440px){
+      .question-list{grid-template-columns:1fr 1fr}
+      .q-nav{padding:9px 6px;gap:7px}
+      .q-no{width:28px;height:28px}
+      .q-nav-title{font-size:11px}
+      .feedback-list{grid-template-columns:1fr}
+      h2{font-size:21px}
+      .student-left .label-small{width:100%}
+      .top-right .btn{font-size:11px}
+      .export-buttons .btn{font-size:12px;padding:10px 8px}
+    }
+    /* QR 공유 및 학생 학적정보: 모바일에서도 쉽게 선택 */
+    .student-left{display:grid;grid-template-columns:minmax(150px,1.1fr) minmax(180px,1.6fr) repeat(3,minmax(75px,.65fr)) minmax(130px,1fr);width:100%;gap:10px;align-items:end}
+    .student-id-field{display:flex;flex-direction:column;gap:5px;min-width:0}
+    .student-id-field .student-input{width:100%;min-width:0;max-width:none}
+    .student-id-field select.student-input{height:40px;cursor:pointer}
+    .student-notice{font-size:11px;color:#68838a;width:100%}
+    .qr-layout{display:grid;justify-items:center;text-align:center;gap:12px}
+    .qr-layout img{width:min(290px,90%);height:auto;image-rendering:pixelated;border:1px solid var(--line);padding:9px;border-radius:12px;background:#fff}
+    .qr-address{max-width:100%;overflow-wrap:anywhere;color:#47616f;font-size:13px}
+    @media(max-width:1000px){.student-left{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:760px){.student-left{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%}.student-id-field.school-field{grid-column:span 1}}
+    @media(max-width:380px){.student-id-field.school-field{grid-column:span 2}}
+    @media print{
+      @page{margin:15mm}
+      body{background:white!important}
+      body> *:not(#preview-modal){display:none!important}
+      #preview-modal{display:block!important;position:static!important;background:white!important;padding:0!important}
+      #preview-modal .modal{display:block!important;position:static!important;box-shadow:none!important;border:0!important;max-height:none!important;width:100%!important;border-radius:0!important;overflow:visible!important}
+      #preview-modal .modal-heading,#preview-modal .modal-footer{display:none!important}
+      #preview-modal .modal-body{overflow:visible!important;padding:0!important}
+      #print-content{display:block!important}
+      .preview-item{break-inside:auto}
+    }
+
+    /* 2차 확장: AI 검토 · 교사 첨삭 · 지도 기준 */
+    .teacher-launch{display:flex;flex-wrap:wrap;gap:7px}
+    .review-studio{margin-top:18px;padding:26px 30px 28px;scroll-margin-top:18px}
+    .studio-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:17px}
+    .studio-heading h2{margin:2px 0 5px;font-size:24px}
+    .studio-heading p{font-size:13px;color:var(--ink-sub);margin:0;max-width:710px}
+    .studio-flow{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+    .studio-flow span{font-size:12px;font-weight:800;border-radius:9px;background:#eff5f5;border:1px solid #e0ebeb;color:#4b6971;padding:8px 12px}
+    .studio-flow span:first-child{background:var(--teal-light);border-color:#cfebe2;color:var(--teal-dark)}
+    .review-privacy{padding:12px 14px;background:#fffbf3;border:1px solid #fae9c7;border-radius:11px;font-size:12px;color:#805c25;margin-bottom:20px;line-height:1.7}
+    .review-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;align-items:start}
+    .review-box{border:1px solid var(--line);border-radius:14px;background:#fcfdfd;padding:18px;min-width:0}
+    .review-box h3{margin:0 0 5px;font-size:18px;letter-spacing:-.5px}
+    .review-box .box-desc{color:#71828d;font-size:12px;margin:0 0 14px}
+    .consent-line{display:flex;gap:7px;align-items:flex-start;font-size:12px;color:#526b75;margin:11px 0}
+    .consent-line input{accent-color:var(--teal);margin-top:3px}
+    .review-actions{display:flex;flex-wrap:wrap;gap:7px}
+    .review-actions .btn{font-size:12px;padding:9px 11px}
+    .review-status{font-size:12px;color:#627682;margin:12px 0;background:#f3f7f9;border-radius:9px;padding:10px;min-height:39px}
+    .review-status.is-good{background:#e9f8f3;color:#076f62}
+    .review-status.is-warn{background:#fff5e6;color:#926017}
+    .ai-placeholder{background:#fff;border:1px dashed #d3dfe0;padding:18px;border-radius:10px;color:#84939e;font-size:12px;line-height:1.7}
+    .ai-summary{white-space:pre-wrap;font-size:13px;line-height:1.75;border-left:3px solid #16a48b;background:#edf9f4;padding:12px 14px;margin:10px 0 14px;border-radius:0 9px 9px 0}
+    .ai-group{margin:13px 0}
+    .ai-group b{font-size:12px;color:#3c5964}
+    .ai-list{padding-left:19px;margin:6px 0;font-size:13px;line-height:1.7;color:#3e5464}
+    .ai-list li{margin:5px 0;white-space:pre-wrap}
+    .ai-example{white-space:pre-wrap;line-height:1.8;padding:10px 12px;font-size:12px;background:#f5f7f9;border-radius:9px;color:#526472}
+    .form-field{display:block;margin-bottom:13px}
+    .form-field>span{display:block;font-size:12px;font-weight:850;color:#4b6271;margin-bottom:6px}
+    .form-field textarea,.form-field input,.form-field select{width:100%;border:1px solid #dbe5e8;border-radius:9px;background:#fff;padding:10px 12px;color:var(--ink);font-size:13px;line-height:1.7}
+    .form-field textarea{resize:vertical;min-height:78px}
+    .form-field select{height:43px}
+    .form-field small{display:block;margin-top:4px;color:#87959e;font-size:11px}
+    .teacher-footnote{font-size:11px;color:#87969c;margin:0 0 13px;line-height:1.6}
+    .review-divider{border:0;border-top:1px solid var(--line);margin:22px 0 20px}
+    .review-section-title{margin:0 0 5px;font-size:18px;letter-spacing:-.4px}
+    .review-section-desc{color:var(--ink-sub);font-size:12px;margin:0 0 13px}
+    .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .compare-grid textarea{width:100%;min-height:185px;border:1px solid #dce4e7;border-radius:10px;padding:13px;resize:vertical;font-size:13px;line-height:1.9;color:var(--ink)}
+    .compare-grid textarea[readonly]{background:#f4f7f8;color:#5a6d79}
+    .compare-label{display:flex;justify-content:space-between;align-items:center;margin:0 0 7px;font-size:12px;font-weight:850}
+    .compare-label span{font-size:11px;font-weight:500;color:#809099}
+    .inline-status{color:#84929a;font-size:12px;margin-top:10px}
+    .annotation-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+    .annotation-grid textarea{min-height:66px}
+    .annotation-item{display:flex;justify-content:space-between;gap:12px;padding:13px;border:1px solid #e2eaec;background:#fbfdfc;border-radius:10px;margin-top:9px;align-items:flex-start}
+    .annotation-item blockquote{margin:0 0 7px;border-left:3px solid #94c8be;padding-left:9px;font-size:12px;color:#657680;white-space:pre-wrap}
+    .annotation-item p{font-size:13px;white-space:pre-wrap;margin:0;line-height:1.7}
+    .annotation-item .annotation-text{min-width:0;word-break:break-word}
+    .review-export{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px;padding-top:15px;border-top:1px solid var(--line)}
+    .review-export .btn{font-size:12px}
+    .settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .settings-chips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;border:1px solid #dbe8e5;padding:13px;border-radius:11px;background:#f7fbf9;margin-bottom:14px}
+    .settings-chips label{font-size:12px;color:#344f59;display:flex;align-items:flex-start;gap:8px}
+    .settings-chips input{accent-color:var(--teal);margin-top:3px}
+    .helper-label{font-size:12px;font-weight:850;color:var(--teal-dark);margin:12px 0 7px}
+    .review-import textarea{width:100%;min-height:180px;padding:12px;border-radius:10px;border:1px solid #dce7e9;font:12px/1.65 monospace;resize:vertical}
+    .muted-sm{color:#7d8e98;font-size:11px;line-height:1.6}
+    @media (max-width:910px){.review-grid,.compare-grid{grid-template-columns:1fr}}
+    @media (max-width:760px){.review-studio{padding:19px 15px}.annotation-grid,.settings-grid{grid-template-columns:1fr}.teacher-launch .btn{font-size:11px}}
+  </style>
+</head>
+<body>
+<header class="topbar">
+<div class="app-wrap topbar-inner">
+<div aria-label="자소서 실험실 홈" class="brand">
+<div aria-hidden="true" class="brand-mark">✎</div>
+<div><div class="brand-t">자소서 실험실</div><span class="brand-sub">나의 경험을 나의 언어로</span></div>
+</div>
+<div class="top-right">
+<span class="secure">학생 전용 · 내 글 작성과 수정</span>
+<button class="btn btn-small btn-soft" id="qr-open" type="button">📱 사이트 QR 공유</button>
+
+<a class="btn btn-small" href="index.html">접속 선택</a></div>
+</div>
+</header>
+<div class="app-wrap">
+<section class="hero">
+<div>
+<p class="eyebrow">WRITING WORKSHOP · 중학생 진로 수업</p>
+<h1>내가 해온 경험을 <span>좋은 글로.</span></h1>
+<p class="hero-desc">학생 정보 입력 → 경험 메모 → 초안 작성 → 선생님께 제출 → 피드백 확인</p>
+</div>
+<div aria-label="자기소개서 연습 종류" class="mode-switch" role="tablist">
+<button aria-selected="true" class="mode-btn" id="mode-high" role="tab" type="button">🏫 고등학교 입학 연습</button>
+<button aria-selected="false" class="mode-btn" id="mode-univ" role="tab" type="button">🎓 대학교 진학 연습</button>
+</div>
+</section>
+<div class="student-bar">
+<div class="student-left">
+<label class="student-id-field"><span class="label-small">지역(시도)</span><select aria-label="시도 선택" class="student-input" id="student-region"><option value="">시도 선택</option><option value="서울특별시">서울특별시</option><option value="부산광역시">부산광역시</option><option value="대구광역시">대구광역시</option><option value="인천광역시">인천광역시</option><option value="광주광역시">광주광역시</option><option value="대전광역시">대전광역시</option><option value="울산광역시">울산광역시</option><option value="세종특별자치시">세종특별자치시</option><option value="경기도">경기도</option><option value="강원특별자치도">강원특별자치도</option><option value="충청북도">충청북도</option><option value="충청남도">충청남도</option><option value="전북특별자치도">전북특별자치도</option><option value="전라남도">전라남도</option><option value="경상북도">경상북도</option><option value="경상남도">경상남도</option><option value="제주특별자치도">제주특별자치도</option></select></label>
+<label class="student-id-field school-field"><span class="label-small">학교</span><input aria-label="학교명 입력 또는 선택" autocomplete="off" class="student-input" id="student-school" list="school-suggestions" maxlength="60" placeholder="학교명 입력·선택"/><datalist id="school-suggestions"></datalist></label>
+<label class="student-id-field"><span class="label-small">학년</span><select aria-label="학년 선택" class="student-input" id="student-grade"><option value="">학년 선택</option><option value="1">1학년</option><option value="2">2학년</option><option value="3">3학년</option></select></label>
+<label class="student-id-field"><span class="label-small">반</span><select aria-label="반 선택" class="student-input" id="student-class"><option value="">반 선택</option></select></label>
+<label class="student-id-field"><span class="label-small">번호 (선택)</span><select aria-label="번호 선택" class="student-input" id="student-number"><option value="">번호 선택</option></select></label>
+<label class="student-id-field"><span class="label-small">작성자 별명 (선택)</span><input autocomplete="off" class="student-input" id="student-name" maxlength="35" placeholder="예: 과학탐험가"/></label>
+</div>
+<div class="student-notice">지역·학교·학년·반을 선택한 뒤 글을 작성하세요. 학교명은 직접 입력하거나 이 기기에서 이전에 사용한 학교를 선택할 수 있어요. 입력 정보는 이 기기의 저장 및 제출용 파일에만 포함됩니다.</div>
+<div>
+<div class="autosave" id="save-state" role="status"><span aria-hidden="true" class="autosave-dot"></span><span>이 브라우저에 자동 저장</span></div>
+<div class="privacy">공용 컴퓨터라면 사용 후 기록을 삭제하세요.</div>
+</div>
+</div>
+<main class="layout">
+<nav aria-label="자기소개서 문항 선택" class="panel sidebar">
+<div class="section-label">MY PROGRESS · 나의 작성 진도</div>
+<div class="progress-meta"><div class="progress-num" id="progress-count">0 <span>/ 4</span></div><div class="progress-name">60자 이상 작성 문항</div></div>
+<div aria-label="문항 작성 진도" aria-valuemax="4" aria-valuemin="0" aria-valuenow="0" class="progress-track" id="progress-track" role="progressbar"><div class="progress-fill" id="progress-fill"></div></div>
+<div class="question-list" id="question-list"></div>
+<div class="sidebar-tip">
+<strong>✦ 글쓰기 핵심</strong><br/>대단한 수상 경력이 없어도 괜찮아요. 평범한 일 속에서 <b>내가 실제로 한 행동</b>을 구체적으로 쓰는 것이 중요합니다.
+          
+</div>
+</nav>
+<section aria-label="자기소개서 작성 공간" class="panel editor">
+<div class="question-kicker">
+<span class="chip chip-green" id="question-index">QUESTION 01</span>
+<span class="chip" id="question-category">학습 경험</span>
+</div>
+<h2 id="question-text">자기소개서 연습 질문</h2>
+<p class="question-desc" id="question-purpose"></p>
+<div class="guide-box">
+<div class="guide-box-title">💡 이렇게 생각해 보세요</div>
+<p id="question-guide"></p>
+</div>
+<div class="step-head"><span class="step-num">1</span><h3>경험을 세 부분으로 나누어 메모하기</h3><span class="step-sub">짧은 단어나 문장으로 적어도 좋아요</span></div>
+<div class="memo-grid">
+<div class="memo-card">
+<div class="memo-head"><span class="mini-number">01</span> 상황·계기</div>
+<div class="memo-prompt" id="memo-guide-0"></div>
+<label class="label-small" for="memo-0">나의 경험</label>
+<textarea aria-label="상황과 계기 메모" id="memo-0" placeholder="언제, 어디서, 어떤 일이 있었나요?"></textarea>
+</div>
+<div class="memo-card">
+<div class="memo-head"><span class="mini-number">02</span> 나의 행동</div>
+<div class="memo-prompt" id="memo-guide-1"></div>
+<label class="label-small" for="memo-1">내가 직접 한 일</label>
+<textarea aria-label="나의 행동 메모" id="memo-1" placeholder="다른 사람이 아닌 내가 한 행동은?"></textarea>
+</div>
+<div class="memo-card">
+<div class="memo-head"><span class="mini-number">03</span> 결과·배움</div>
+<div class="memo-prompt" id="memo-guide-2"></div>
+<label class="label-small" for="memo-2">달라진 점</label>
+<textarea aria-label="결과와 배움 메모" id="memo-2" placeholder="무엇이 바뀌었고 무엇을 배웠나요?"></textarea>
+</div>
+</div>
+<div class="compose-row">
+<div class="subhelp">세 칸의 메모는 본문에 자동 포함되지 않아요.</div>
+<button class="btn btn-soft btn-small" id="compose" type="button">✨ 메모로 글의 뼈대 만들기</button>
+</div>
+<div class="step-head write-head"><span class="step-num">2</span><h3>자신의 문장으로 초안 완성하기</h3><span class="step-sub">메모를 풀어서 자연스럽게 적어 보세요</span></div>
+<label class="label-small" for="essay-draft" style="display:block;margin-bottom:9px">자기소개서 본문</label>
+<textarea class="draft-field" id="essay-draft" placeholder="처음에는 어떤 상황이었는지, 나는 어떤 행동을 했는지, 그리고 무엇을 배우거나 바꾸었는지 순서대로 적어 보세요."></textarea>
+<div class="write-footer"><span>권장: 200~500자 · 정해진 글자 수 제한은 없습니다.</span><span aria-live="polite" id="char-count">공백 포함 0자</span></div>
+<div class="example" id="starter-example"></div>
+<div class="editor-nav"><button class="btn" id="prev-question" type="button">← 이전 질문</button><button class="btn btn-primary" id="next-question" type="button">다음 질문 →</button></div>
+</section>
+<aside aria-label="자기소개서 스스로 점검하기" class="panel feedback">
+<div class="section-label">SELF REVIEW · 스스로 점검</div>
+<h3 class="feedback-title">내 글의 체크포인트</h3>
+<p class="feedback-intro">내가 써온 경험이 잘 드러나는지 확인해요.</p>
+<div class="feedback-progress"><div><span class="feedback-caption">점검 항목</span><div class="feedback-count" id="review-count">0 <span>/ 5</span></div></div><span aria-hidden="true" style="font-size:32px">📝</span></div>
+<ul class="feedback-list" id="feedback-list"></ul>
+<div class="next-tip" id="next-tip"><b>다음에 할 일</b>먼저 경험을 떠올려 메모해 보세요.</div>
+<p class="feedback-note">※ 단어·분량을 참고하는 <b>기초 자동 점검</b>입니다. 실제 글의 진실성, 표현력, 입학 가능성을 판정하지 않습니다.</p>
+</aside>
+</main><section aria-label="선생님이 전달한 피드백" class="panel" style="padding:24px;margin-top:18px"><div class="section-label">MY FEEDBACK · 전달받은 지도 의견</div><h2>선생님의 피드백 확인</h2><p>선생님에게 받은 학생용 피드백 JSON 파일을 불러오세요. 이곳에서는 의견을 수정하지 않고 읽은 뒤, 위의 내 글을 고칩니다.</p><button class="btn btn-soft" id="feedback-import" type="button">학생용 피드백 불러오기</button><input accept=".json" hidden="" id="feedback-file" type="file"/><div id="shared-feedback" role="status" style="white-space:pre-wrap;line-height:1.9;margin-top:15px">아직 불러온 피드백이 없습니다.</div></section>
+
+<section aria-label="완성본 저장 및 제출" class="panel export">
+<div class="export-main">
+<div><div class="section-label" style="margin-bottom:4px">FINISH · 완성하고 저장하기</div><h3>작성한 글을 한 번에 모아볼까요?</h3><p>저장한 파일은 수업 제출이나 다음 시간 이어쓰기에 사용할 수 있어요.</p></div>
+<div class="export-buttons">
+<button class="btn" id="preview-open" type="button">👀 전체 글 미리보기</button>
+<button class="btn btn-primary" id="download-txt" type="button">⬇ 제출용 TXT</button>
+</div>
+</div>
+<div class="export-sub">
+<button class="btn btn-small" id="download-csv" type="button">CSV로 저장 (시트용)</button>
+<button class="btn btn-small" id="download-json" type="button">제출용 JSON 파일 저장</button>
+<button class="btn btn-small" id="download-teacher-backup" type="button">교사용 통합 작업 백업</button>
+<button class="btn btn-small" id="upload-json" type="button">백업 파일 불러오기</button>
+<button class="btn btn-small btn-warn" id="clear-data" type="button">이 기기 기록 지우기</button>
+<span class="export-sub-help">학생용 JSON에는 교사 의견이 포함되지 않습니다. 교사용 백업에는 비공개 메모가 포함됩니다.</span>
+<input accept=".json,application/json" hidden="" id="upload-file" type="file"/>
+</div>
+</section>
+<p class="footnote">수업용 모의 자기소개서 지도 프로그램 · 초안은 이 기기의 브라우저에 저장됩니다. AI 분석 버튼을 클릭하면 해당 글과 지도 기준이 외부 API로 전송됩니다. 중요한 글은 JSON 파일로 백업하세요.</p>
+</div>
+<div aria-hidden="true" class="modal-layer" id="qr-modal">
+<section aria-labelledby="qr-heading" aria-modal="true" class="modal" role="dialog">
+<div class="modal-heading"><h3 id="qr-heading">📱 학생용 QR로 바로 접속</h3><button class="btn btn-small" data-close-modal="qr-modal" type="button">✕ 닫기</button></div>
+<div class="modal-body qr-layout"><p class="teacher-p" style="margin:0">이 QR을 교실 화면에 띄우면 학생들이 스마트폰 카메라로 스캔해 자기소개서 프로그램을 바로 열 수 있어요.</p><img alt="자기소개서 프로그램 학생용 사이트 주소 QR 코드" height="290" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZUAAAGVAQAAAAAeIFGWAAADlklEQVR4nO2cQY6jSBBFXxhLeEffAN+EnpPMUcA3g5vgG8BiJJAMvxeRYNespqqlajMKVqjMkzIV+mT8iKBMfPaaT59GIJhgggkmmGD+98xofl1hOQHddTQ7YQ2MdgZruvRE8+1rC+aLTC5JamE+A1Q9+UOmpruSP2RAKUn6E2sL5ovM4hocL9kKt59AtmJW98WUHhzNTh+Z71pbML/H5A+Zqb2X4xmk9m52fpe1BfM1ZrZM0F3JZz9PC82Z1LzD2oL5j1dSYSagg3wCgcbLP7ZC9/cAMuq/KJ7FiXfeTzAbM5uZ2U9gOWFNdwXwvPeCCbibmdmfWFswn73OwFOD45wvJuhHssWg6sqJxaB6LSG+836CASRpyB8AlJowqan6Qo/Xh+oWwCRJmt55P8EkphjPJkmdFVox3a6juWXtC7elVV9M2RLv3kMwuPYeQN2WQ64V6rbUlEnpZkVqceXWodP3Z1JMJampeshWoNKQ+18kacUrS5IipkdgPKZTtiadPkBNJT9Y1QLZihrKAQidHoJJMU35z5D76akBwJMll6ffRI50GGa84M2XclpOqOnsB5kElPfLYuadmrOiL3MgJtdiUPWQLWZqAQ+l/QCQ1T354yPzXWsL5tPX/u4FygFMe0bkWdP2U/7YHn7n/QTDi5dJp2dyLinKFG5qUh4VMT0Cs+mUzYSaJPWe7iplwtRSsq4R0/dnNi/jVSNyraTy0QpQyqPcpjmHiOkBmO3da1JD6QUlrwS6Tl3CDeWQP6LeewzmpYZfv8hze9P2r+dp+NMDMcWUrUB3hSUTcC+nJRN01cBipoa7uYf99rUF8zVmtHOyMODJkg+bUfVjodW75OFPD8UUmk9wsytzvpg1UEzLCW5m5WhZ6ocvMedwDMbP0/0m92Rpm/hVn4xq5QdrnKdHYJ45ktTuodwqS6mYT93ig77hZQ7A8NqO6feYpv4pZfoJUokpYvr+zL90ym5Lfc4BUr033YROD8C8zDk8jWpbDj7wkORJLQ1EvfcgzDNHApI8AcgkNZVnTfsIROj0OMz2XdtYzCe8hp8+WkzliKpnzpU+snj//QTD/l0b81nmFYbUJR/tLONm9iOfw58ektkS4GJaMlnTWZmGt8uBTIra4CEZGTe7jpdsMTWU98ty8nb5hEKnh2Ce/jQ1SVM7Zm+6vYxzR//0GMzHvHe3MJtR9fJRzPceirH4n1fBBBNMMMEE89vML752IRI0GvBJAAAAAElFTkSuQmCC" width="290"/><a class="qr-address" href="https://charlie82-netizon.github.io/student-career-ch1/student.html" rel="noopener" target="_blank">https://charlie82-netizon.github.io/student-career-ch1/student.html</a><p class="teacher-p" style="margin:0">QR 접속만으로 작성 내용이 선생님에게 자동 제출되지는 않습니다. 작성 후 학생 JSON 파일을 전달해야 합니다.</p></div>
+<div class="modal-footer"><button class="btn" id="qr-copy" type="button">🔗 사이트 주소 복사</button><a class="btn btn-primary" download="자소서_학생접속_QR.png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZUAAAGVAQAAAAAeIFGWAAADlklEQVR4nO2cQY6jSBBFXxhLeEffAN+EnpPMUcA3g5vgG8BiJJAMvxeRYNespqqlajMKVqjMkzIV+mT8iKBMfPaaT59GIJhgggkmmGD+98xofl1hOQHddTQ7YQ2MdgZruvRE8+1rC+aLTC5JamE+A1Q9+UOmpruSP2RAKUn6E2sL5ovM4hocL9kKt59AtmJW98WUHhzNTh+Z71pbML/H5A+Zqb2X4xmk9m52fpe1BfM1ZrZM0F3JZz9PC82Z1LzD2oL5j1dSYSagg3wCgcbLP7ZC9/cAMuq/KJ7FiXfeTzAbM5uZ2U9gOWFNdwXwvPeCCbibmdmfWFswn73OwFOD45wvJuhHssWg6sqJxaB6LSG+836CASRpyB8AlJowqan6Qo/Xh+oWwCRJmt55P8EkphjPJkmdFVox3a6juWXtC7elVV9M2RLv3kMwuPYeQN2WQ64V6rbUlEnpZkVqceXWodP3Z1JMJampeshWoNKQ+18kacUrS5IipkdgPKZTtiadPkBNJT9Y1QLZihrKAQidHoJJMU35z5D76akBwJMll6ffRI50GGa84M2XclpOqOnsB5kElPfLYuadmrOiL3MgJtdiUPWQLWZqAQ+l/QCQ1T354yPzXWsL5tPX/u4FygFMe0bkWdP2U/7YHn7n/QTDi5dJp2dyLinKFG5qUh4VMT0Cs+mUzYSaJPWe7iplwtRSsq4R0/dnNi/jVSNyraTy0QpQyqPcpjmHiOkBmO3da1JD6QUlrwS6Tl3CDeWQP6LeewzmpYZfv8hze9P2r+dp+NMDMcWUrUB3hSUTcC+nJRN01cBipoa7uYf99rUF8zVmtHOyMODJkg+bUfVjodW75OFPD8UUmk9wsytzvpg1UEzLCW5m5WhZ6ocvMedwDMbP0/0m92Rpm/hVn4xq5QdrnKdHYJ45ktTuodwqS6mYT93ig77hZQ7A8NqO6feYpv4pZfoJUokpYvr+zL90ym5Lfc4BUr033YROD8C8zDk8jWpbDj7wkORJLQ1EvfcgzDNHApI8AcgkNZVnTfsIROj0OMz2XdtYzCe8hp8+WkzliKpnzpU+snj//QTD/l0b81nmFYbUJR/tLONm9iOfw58ektkS4GJaMlnTWZmGt8uBTIra4CEZGTe7jpdsMTWU98ty8nb5hEKnh2Ce/jQ1SVM7Zm+6vYxzR//0GMzHvHe3MJtR9fJRzPceirH4n1fBBBNMMMEE89vML752IRI0GvBJAAAAAElFTkSuQmCC">⬇ QR 이미지 저장</a></div>
+</section>
+</div>
+<div aria-hidden="true" class="modal-layer" id="preview-modal">
+<section aria-labelledby="preview-heading" aria-modal="true" class="modal" role="dialog">
+<div class="modal-heading"><h3 id="preview-heading">🧾 나의 자기소개서 전체 보기</h3><button class="btn btn-small" data-close-modal="preview-modal" type="button">✕ 닫기</button></div>
+<div class="modal-body"><div id="print-content"></div></div>
+<div class="modal-footer"><button class="btn" id="copy-all" type="button">전체 내용 복사</button><button class="btn btn-primary" id="print-all" type="button">인쇄 / PDF로 저장</button></div>
+</section>
+</div>
+
+
+
+<div aria-live="polite" class="toast" id="toast" role="status"></div>
+<script>
+  (() => {
+    'use strict';
+    const STORAGE_KEY = 'career_student_v5';
+    const QUESTIONS = {
+      high: [
+        {
+          category:'학습 경험', short:'학습 경험',
+          question:'중학교 생활 중 가장 열심히 공부했던 과목은 무엇이며, 실력을 향상시키기 위해 어떤 노력을 했나요?',
+          purpose:'잘하는 과목보다 노력의 과정이 구체적으로 드러나는 경험이 좋습니다.',
+          guide:'어려웠던 개념 → 스스로 바꾼 공부 방법 → 달라진 점을 순서대로 떠올려 보세요.',
+          notes:['어떤 과목·단원이었나요? 왜 노력하게 되었나요?','스스로 정한 방법, 반복 연습, 질문 또는 정리한 활동은?','점수뿐 아니라 이해도·습관·자신감은 어떻게 달라졌나요?'],
+          starter:'“처음에는 ○○ 개념이 어려웠습니다. 그래서 저는 …”'
+        },
+        {
+          category:'자기주도성', short:'목표와 실천',
+          question:'스스로 목표를 세우고 이를 달성하기 위해 꾸준히 노력했던 경험을 구체적으로 작성해 보세요.',
+          purpose:'남이 시켜서 한 일이 아니라 스스로 정한 목표와 실천 과정을 보여 주세요.',
+          guide:'왜 목표를 세웠는지, 계획을 어떻게 실천했는지, 중간에 무엇을 조정했는지 써 보세요.',
+          notes:['내가 정한 목표는 무엇이며 왜 중요했나요?','계획·기간·방법을 어떻게 정하고 실천했나요?','목표를 이루었나요? 도중에 무엇을 배웠나요?'],
+          starter:'“저는 ○○을 이루기 위해 스스로 ○○이라는 목표를 세웠습니다.”'
+        },
+        {
+          category:'문제 해결', short:'어려움 극복',
+          question:'학교생활 중 어려움이나 실패를 경험했던 적이 있나요? 이를 극복하기 위해 어떤 행동을 했으며, 무엇을 배웠나요?',
+          purpose:'실패의 크기보다 문제를 마주한 태도와 행동의 변화가 중요합니다.',
+          guide:'어려웠던 상황을 짧게 쓰고, 해결하려고 시도한 행동을 중심으로 설명해 보세요.',
+          notes:['무엇이 어렵거나 실패로 느껴졌나요?','문제를 해결하려고 어떤 시도와 변화를 만들었나요?','결과와 관계없이 어떤 점을 새롭게 알았나요?'],
+          starter:'“처음에는 ○○ 때문에 어려움을 겪었습니다. 저는 이를 해결하려고 …”'
+        },
+        {
+          category:'협력과 인성', short:'협력·갈등 해결',
+          question:'친구들과 함께 활동하면서 공동의 목표를 달성하거나 갈등을 해결했던 경험을 작성해 보세요.',
+          purpose:'친구에 대한 평가보다 내 역할, 대화 방식, 협력 과정을 중심으로 씁니다.',
+          guide:'함께했던 목표 → 나의 역할과 실제 대화·행동 → 공동의 결과를 연결해 보세요.',
+          notes:['누구와 어떤 활동·목표를 함께했나요?','갈등 해결이나 협력을 위해 내가 직접 한 일은?','친구들과의 관계나 팀의 결과는 어떻게 바뀌었나요?'],
+          starter:'“○○ 활동에서 저희 모둠은 ○○을 목표로 했고, 저는 …”'
+        }
+      ],
+      univ: [
+        {
+          category:'학문 관심', short:'관심 분야의 계기',
+          question:'관심 있는 학문이나 분야는 무엇이며, 그 분야에 관심을 갖게 된 구체적인 경험은 무엇인가요?',
+          purpose:'직업 이름을 적는 데 그치지 말고 관심이 생긴 실제 경험을 보여 주세요.',
+          guide:'우연히 흥미를 느낀 계기와 그 뒤에 스스로 더 알아본 활동을 구분해 보세요.',
+          notes:['어떤 수업·책·활동에서 처음 흥미가 생겼나요?','관심이 생긴 뒤 스스로 더 알아본 것은 무엇인가요?','생각이 어떻게 깊어지거나 달라졌나요?'],
+          starter:'“○○ 수업에서 ○○을 접한 뒤 이 분야에 관심이 생겼습니다.”'
+        },
+        {
+          category:'탐구 경험', short:'자기주도적 탐구',
+          question:'궁금한 문제를 해결하기 위해 스스로 조사하거나 탐구했던 경험을 구체적으로 작성해 보세요.',
+          purpose:'결론이 대단한가보다 질문을 정하고 방법을 찾은 과정이 핵심입니다.',
+          guide:'궁금증 → 자료 조사·실험·비교 → 발견 또는 남은 질문의 순서로 쓰세요.',
+          notes:['어떤 궁금증이 생겼으며 왜 탐구하고 싶었나요?','어떤 자료를 찾고 어떻게 비교·실험·검증했나요?','발견한 점이나 새로 생긴 질문은 무엇인가요?'],
+          starter:'“저는 ○○이 궁금해 직접 ○○을 조사해 보기로 했습니다.”'
+        },
+        {
+          category:'도전과 성장', short:'새로운 도전',
+          question:'새로운 일에 도전한 경험을 소개하고, 그 과정에서 어떤 노력을 했으며 어떤 성과나 배움을 얻었는지 작성해 보세요.',
+          purpose:'성과의 크기보다 낯선 상황에서 시도하고 적응한 점에 집중하세요.',
+          guide:'왜 도전했는지, 어려움에 어떻게 대처했는지, 이후 무엇이 달라졌는지 써 보세요.',
+          notes:['이전에는 해보지 않았던 어떤 활동에 도전했나요?','막히는 순간마다 어떤 구체적 행동을 했나요?','성공·실패를 통해 어떤 능력과 태도를 얻었나요?'],
+          starter:'“○○은 처음 해보는 일이었지만, ○○을 배우고 싶어 도전했습니다.”'
+        },
+        {
+          category:'공동 프로젝트', short:'협력과 기여',
+          question:'친구들과 공동 프로젝트를 진행한 경험에서 자신의 역할과 기여한 점을 구체적으로 작성해 보세요.',
+          purpose:'팀 전체 성과와 자신이 실제로 수행한 역할을 구분해 보여 주세요.',
+          guide:'목표와 역할을 소개한 뒤, 의견 조정이나 문제 해결에 어떤 기여를 했는지 서술하세요.',
+          notes:['프로젝트 목표와 맡은 역할은 무엇이었나요?','나는 무엇을 제안·제작·조율·수정했나요?','팀과 나는 어떤 결과 또는 배움을 얻었나요?'],
+          starter:'“○○ 프로젝트에서 저는 ○○ 역할을 맡아 …”'
+        },
+        {
+          category:'심화 활동', short:'관심 분야 심화',
+          question:'관심 분야와 관련된 수업, 독서, 동아리 또는 체험 활동 중 배움을 깊게 만든 경험을 작성해 보세요.',
+          purpose:'활동 목록을 나열하기보다 하나를 골라 생각이 변화한 과정을 드러내세요.',
+          guide:'한 활동에서 생긴 질문과 더 알아본 내용, 다음 탐구로 이어진 점을 연결하세요.',
+          notes:['어떤 수업·독서·동아리·체험을 선택했나요?','그 활동에서 특히 무엇을 깊게 공부했나요?','그 경험이 관심 분야에 대한 생각을 어떻게 바꾸었나요?'],
+          starter:'“○○을 읽거나 체험하면서 저는 ○○이라는 질문을 갖게 되었습니다.”'
+        }
+      ]
+    };
+    const $ = id => document.getElementById(id);
+    const SITE_URL='https://charlie82-netizon.github.io/student-career-ch1/student.html';
+    const SCHOOL_HISTORY_KEY='career_student_schools_v5';
+    const blankProfile=()=>({region:'',school:'',grade:'',classNo:'',number:''});
+    function normalizedProfile(v){
+      const p=v&&typeof v==='object'?v:{};
+      const validNum=(n,max)=>{const num=Number(n);return n!==''&&n!==null&&n!==undefined&&Number.isInteger(num)&&num>=1&&num<=max?String(num):'';};
+      return {region:typeof p.region==='string'?p.region.slice(0,30):'',school:typeof p.school==='string'?p.school.slice(0,60):'',grade:validNum(p.grade,3),classNo:validNum(p.classNo,50),number:validNum(p.number,60)};
+    }
+    function getSchoolHistory(){try{const v=JSON.parse(localStorage.getItem(SCHOOL_HISTORY_KEY)||'{}');return v&&typeof v==='object'&&!Array.isArray(v)?v:{};}catch(e){return {};}}
+    function renderSchoolOptions(){
+      const list=$('school-suggestions');list.replaceChildren();
+      const schools=getSchoolHistory()[state.profile.region];
+      if(!Array.isArray(schools))return;
+      schools.slice(0,40).forEach(name=>{if(typeof name==='string'){const opt=document.createElement('option');opt.value=name;list.append(opt);}});
+    }
+    function rememberSchool(){
+      const p=state.profile,name=p.school.trim();if(!p.region||name.length<2)return;
+      const history=getSchoolHistory();const previous=Array.isArray(history[p.region])?history[p.region]:[];
+      history[p.region]=[name,...previous.filter(s=>s!==name)].slice(0,40);
+      try{localStorage.setItem(SCHOOL_HISTORY_KEY,JSON.stringify(history));}catch(e){}
+      renderSchoolOptions();
+    }
+    function renderStudentIdentity(){
+      const p=state.profile;
+      $('student-region').value=p.region;$('student-school').value=p.school;
+      $('student-grade').value=p.grade;$('student-class').value=p.classNo;
+      $('student-number').value=p.number;$('student-name').value=state.author;
+      renderSchoolOptions();
+    }
+    function identityLabel(){
+      const p=state.profile;
+      return [p.region||'시도 미선택',p.school||'학교 미입력',p.grade?p.grade+'학년':'학년 미선택',p.classNo?p.classNo+'반':'반 미선택',p.number?p.number+'번':'번호 미입력'].join(' · ');
+    }
+    const freshItem = () => ({memo:['','',''],draft:''});
+    const freshState = () => ({mode:'high',author:'',profile:blankProfile(),active:{high:0,univ:0},data:{high:QUESTIONS.high.map(freshItem),univ:QUESTIONS.univ.map(freshItem)}});
+    const state = freshState();
+    let timer = null;
+    let lastFocus = null;
+    let toastTimer = null;
+
+    function loadPersisted(){
+      try{
+        const raw=localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const saved=JSON.parse(raw);
+        applyState(saved);
+      }catch(error){ console.info('이전 자동 저장을 불러오지 못했습니다.',error); }
+    }
+    function applyState(s){
+      if(!s || typeof s!=='object' || !s.data || typeof s.data!=='object') throw new Error('잘못된 작업 데이터');
+      state.mode=s.mode==='univ'?'univ':'high';
+      state.author=typeof s.author==='string'?s.author.slice(0,35):'';
+      state.profile=normalizedProfile(s.profile);
+      for(const mode of ['high','univ']){
+        const list=s.data[mode];
+        state.data[mode]=QUESTIONS[mode].map((q,i)=>{
+          const item=Array.isArray(list)?list[i]:null;
+          const memo=Array.isArray(item?.memo)?item.memo:[];
+          return {memo:[0,1,2].map(j=>typeof memo[j]==='string'?memo[j].slice(0,20000):''),draft:typeof item?.draft==='string'?item.draft.slice(0,100000):''};
+        });
+        const a=Number(s.active?.[mode]);
+        state.active[mode]=Number.isInteger(a)?Math.min(Math.max(a,0),QUESTIONS[mode].length-1):0;
+      }
+    }
+    function saveState(){
+      try {
+        localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
+        $('save-state').innerHTML='<span class="autosave-dot" aria-hidden="true"></span><span>이 브라우저에 자동 저장됨</span>';
+      } catch (error){
+        $('save-state').innerHTML='<span class="autosave-dot" style="background:#da8c2b" aria-hidden="true"></span><span>자동 저장 제한 · 파일로 저장하세요</span>';
+      }
+    }
+    function scheduleSave(){
+      clearTimeout(timer);
+      $('save-state').innerHTML='<span class="autosave-dot" style="background:#d49b40" aria-hidden="true"></span><span>작성 중…</span>';
+      timer=setTimeout(saveState,350);
+    }
+    function getMode(){return state.mode;}
+    function getCurrent(){return state.data[state.mode][state.active[state.mode]];}
+    function getQuestion(){return QUESTIONS[state.mode][state.active[state.mode]];}
+    function countChars(s){return Array.from(s).length;}
+    function complete(item){return item.draft.trim().length>=60;}
+    function answeredCount(mode){return state.data[mode].filter(complete).length;}
+    function toast(message){
+      const el=$('toast');el.textContent=message;el.classList.add('is-visible');
+      clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('is-visible'),3000);
+    }
+    function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+    function renderQuestionList(){
+      const mode=getMode(), questions=QUESTIONS[mode], answered=answeredCount(mode);
+      $('progress-count').innerHTML=answered+' <span>/ '+questions.length+'</span>';
+      $('progress-fill').style.width=(answered/questions.length*100)+'%';
+      $('progress-track').setAttribute('aria-valuenow',String(answered));
+      $('progress-track').setAttribute('aria-valuemax',String(questions.length));
+      $('question-list').innerHTML=questions.map((q,i)=>{
+        const item=state.data[mode][i],active=state.active[mode]===i,done=complete(item);
+        const status=done?'작성 완료':item.draft.trim()||item.memo.some(v=>v.trim())?'작성 중':'시작 전';
+        return '<button type="button" class="q-nav '+(active?'is-active ':'')+(done?'is-done':'')+'" '+(active?'aria-current="step"':'')+' data-q="'+i+'">'+
+          '<span class="q-no">'+(done?'✓':String(i+1).padStart(2,'0'))+'</span><span class="q-nav-body"><span class="q-nav-title">'+escapeHTML(q.short)+'</span><span class="q-nav-state">'+status+'</span></span></button>';
+      }).join('');
+      $('question-list').querySelectorAll('[data-q]').forEach(b=>b.addEventListener('click',()=>goQuestion(Number(b.dataset.q))));
+    }
+    function renderQuestion(){
+      const mode=getMode(),n=state.active[mode],q=getQuestion(),item=getCurrent();
+      $('mode-high').setAttribute('aria-selected',String(mode==='high'));
+      $('mode-univ').setAttribute('aria-selected',String(mode==='univ'));
+      $('question-index').textContent='QUESTION '+String(n+1).padStart(2,'0');
+      $('question-category').textContent=q.category;
+      $('question-text').textContent=q.question;
+      $('question-purpose').textContent=q.purpose;
+      $('question-guide').textContent=q.guide;
+      $('starter-example').textContent='✏️ 문장을 시작하기 어렵다면: '+q.starter+' (그대로 베끼지 말고 자신의 경험으로 바꾸세요.)';
+      for(let j=0;j<3;j++){$('memo-guide-'+j).textContent=q.notes[j];$('memo-'+j).value=item.memo[j];}
+      $('essay-draft').value=item.draft;
+      $('prev-question').disabled=n===0;
+      $('next-question').textContent=n===QUESTIONS[mode].length-1?'전체 글 확인하기 →':'다음 질문 →';
+      renderQuestionList();renderFeedback();renderSharedFeedback();
+    }
+    function renderFeedback(){
+      const item=getCurrent(),draft=item.draft,plain=draft.trim(),len=countChars(draft);
+      $('char-count').textContent='공백 포함 '+len.toLocaleString('ko-KR')+'자';
+      const checks=[
+        {name:'한 가지 경험을 충분히 설명하기',hint:'본문을 160자 이상으로 발전시켜 보세요.',ok:len>=160},
+        {name:'언제·어디서 있었던 일인지',hint:'상황이 보이도록 구체적인 장면을 적어 보세요.',ok:/(\d학년|학기|수업|동아리|대회|친구|학교|수행평가|발표|팀|모둠|프로젝트|활동|방과후|독서|책)/.test(plain)},
+        {name:'내가 직접 한 행동 드러내기',hint:'그때 내가 선택하고 실행한 행동을 써 보세요.',ok:/(직접|스스로|매일|매주|먼저|이후|계획|연습|시도|찾아|조사|기록|비교|만들|준비|질문|도움|조정|토론|정리|수정|제안|실험|해결)/.test(plain)},
+        {name:'결과 또는 깨달음 담기',hint:'이 경험이 나에게 남긴 변화나 배움을 적어 보세요.',ok:/(결과|깨달|배웠|느꼈|알았|변화|향상|성장|성과|완성|해결|달성|이해|배움)/.test(plain)},
+        {name:'내 경험만의 구체적인 부분 넣기',hint:'방법, 횟수, 사례, 대화 등 세부 장면을 추가해 보세요.',ok:/(\d|예를 들어|특히|구체적으로|실제로|처음에는|하지만|때문에|위해|방법|과정|예시|하루|일주일)/.test(plain)}
+      ];
+      const passed=checks.filter(c=>c.ok).length;
+      $('review-count').innerHTML=passed+' <span>/ '+checks.length+'</span>';
+      $('feedback-list').innerHTML=checks.map(c=>'<li class="feedback-item '+(c.ok?'passed':'')+'"><span class="tick" aria-hidden="true">'+(c.ok?'✓':'•')+'</span><span><b>'+c.name+'</b><small>'+(c.ok?'확인해 볼 만한 표현이 있어요.':c.hint)+'</small></span></li>').join('');
+      let title='다음에 할 일',msg='먼저 실제 경험을 떠올려 세 칸에 메모해 보세요.';
+      if(plain.length){
+        const firstMissing=checks.find(c=>!c.ok);
+        if(firstMissing)msg=firstMissing.hint;
+        else msg='다섯 항목을 모두 점검했어요. 내용을 다시 읽고 사실과 표현을 직접 확인해 보세요.';
+        if(/(열심히|최선을|성실히|적극적으로|많이 노력)/.test(draft)&&len>=50){
+          msg+=' “열심히” 같은 말은 실제 행동으로 바꾸면 더 설득력 있어요.';
+        }
+      }
+      $('next-tip').innerHTML='<b>'+title+'</b>'+escapeHTML(msg);
+    }
+    function goQuestion(n){
+      if(n<0||n>=QUESTIONS[state.mode].length)return;
+      state.active[state.mode]=n;renderQuestion();scheduleSave();
+      if(window.matchMedia('(max-width:760px)').matches)document.querySelector('.editor').scrollIntoView({behavior:'smooth',block:'start'});
+    }
+    function setMode(mode){if(mode!==state.mode){state.mode=mode;renderQuestion();scheduleSave();}}
+    function stripEnd(s){return s.trim().replace(/[.!?。\s]+$/g,'');}
+    function makeSkeleton(){
+      const item=getCurrent();
+      if(!item.memo.some(m=>m.trim())){toast('먼저 위의 메모를 한 칸 이상 적어 보세요.');$('memo-0').focus();return;}
+      if(item.draft.trim()&&!window.confirm('현재 작성한 본문을 메모 기반 초안으로 바꿀까요? 기존 본문은 덮어씁니다.'))return;
+      const m=item.memo.map(stripEnd),sentences=[];
+      if(m[0])sentences.push('먼저 제가 경험한 상황은 다음과 같습니다. '+m[0]+'.');
+      if(m[1])sentences.push('이 상황에서 제가 한 행동은 다음과 같습니다. '+m[1]+'.');
+      if(m[2])sentences.push('이 경험을 통해 얻은 결과와 배움은 다음과 같습니다. '+m[2]+'.');
+      item.draft=sentences.join('\n\n');
+      $('essay-draft').value=item.draft;renderFeedback();renderQuestionList();scheduleSave();renderSharedFeedback();
+      $('essay-draft').focus();toast('글의 뼈대가 만들어졌어요. 어색한 부분을 직접 고쳐 주세요.');
+    }
+    function currentOutput(){
+      const qs=QUESTIONS[state.mode],items=state.data[state.mode],label=state.mode==='high'?'고등학교 입학 연습':'대학교 진학 연습';
+      let text='[자기소개서 작성 연습]\n유형: '+label+'\n학교 정보: '+identityLabel()+'\n작성자 별명: '+(state.author||'미입력')+'\n\n';
+      qs.forEach((q,i)=>{text+=(i+1)+'. ['+q.category+'] '+q.question+'\n'+(items[i].draft.trim()||'(작성하지 않음)')+'\n\n';});
+      return text.trimEnd()+'\n';
+    }
+    function safeFileName(s){return (s||'익명').replace(/[\\/:*?"<>|\u0000-\u001f]/g,'_').slice(0,35)||'익명';}
+    function downloadFile(content,filename,type){
+      const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);
+      const link=document.createElement('a');link.href=url;link.download=filename;
+      document.body.appendChild(link);link.click();link.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),1500);
+    }
+    function filename(ext){const p=state.profile;const tag=[p.school,p.grade&&p.grade+'학년',p.classNo&&p.classNo+'반',p.number&&p.number+'번',state.author].filter(Boolean).join('_');return '자소서연습_'+(state.mode==='high'?'고등학교':'대학교')+'_'+safeFileName(tag)+'.'+ext;}
+    function exportCSV(){
+      const headers=['시도','학교','학년','반','번호','작성자 별명','유형','문항 번호','영역','질문','답변','공백 포함 글자 수'];
+      const safeCell=value=>{
+        let s=String(value??'');
+        if(/^[=+\-@\t\r]/.test(s.trimStart()))s="'"+s;
+        return '"'+s.replace(/"/g,'""')+'"';
+      };
+      const rows=QUESTIONS[state.mode].map((q,i)=>[state.profile.region,state.profile.school,state.profile.grade,state.profile.classNo,state.profile.number,state.author,state.mode==='high'?'고등학교':'대학교',i+1,q.category,q.question,state.data[state.mode][i].draft,countChars(state.data[state.mode][i].draft)]);
+      downloadFile('\uFEFF'+[headers,...rows].map(r=>r.map(safeCell).join(',')).join('\r\n'),filename('csv'),'text/csv;charset=utf-8');
+      toast('구글 스프레드시트에서 열 수 있는 CSV 파일을 저장했어요.');
+    }
+    function buildPreview(){
+      const qs=QUESTIONS[state.mode],items=state.data[state.mode];
+      const label=state.mode==='high'?'고등학교 입학 연습':'대학교 진학 연습';
+      $('print-content').innerHTML='<div class="preview-meta"><strong>자기소개서 작성 연습</strong> · '+label+'<br>학교 정보: '+escapeHTML(identityLabel())+'<br>작성자 별명: '+escapeHTML(state.author||'미입력')+' · 작성 문항: '+answeredCount(state.mode)+'/'+qs.length+'</div>'+qs.map((q,i)=>'<article class="preview-item"><h4>'+(i+1)+'. ['+escapeHTML(q.category)+'] '+escapeHTML(q.question)+'</h4><p class="'+(!items[i].draft.trim()?'empty-answer':'')+'">'+escapeHTML(items[i].draft.trim()||'(작성하지 않음)')+'</p></article>').join('');
+    }
+    function openModal(id){lastFocus=document.activeElement;if(id==='preview-modal')buildPreview();const modal=$(id);modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');modal.querySelector('[data-close-modal]').focus();}
+    function closeModal(id){const modal=$(id);modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');lastFocus?.focus?.();}
+    async function copyAll(){
+      const s=currentOutput();
+      try{if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(s);toast('전체 내용이 복사되었어요.');return;}}catch(e){}
+      const helper=document.createElement('textarea');helper.value=s;helper.style.position='fixed';helper.style.opacity='0';document.body.appendChild(helper);helper.select();
+      const result=document.execCommand('copy');helper.remove();toast(result?'전체 내용이 복사되었어요.':'복사 기능을 사용할 수 없어 TXT 저장을 권장해요.');
+    }
+    function importFile(file){
+      if(!file)return;
+      if(file.size>2*1024*1024){toast('2MB 이하의 JSON 작업파일만 불러올 수 있어요.');return;}
+      const reader=new FileReader();
+      reader.onload=()=>{
+        try{
+          const s=JSON.parse(String(reader.result));
+          if(s.kind || s.teacher || s.records) throw new Error('학생 작성 파일만 불러올 수 있습니다.');
+          if(!s.data?.high||!s.data?.univ)throw new Error('기본 문항 정보가 없습니다.');
+          if(!window.confirm('새 학생 작성 파일을 불러오면 현재 학생 작성본과 전달받은 피드백이 바뀝니다. 계속할까요?'))return;
+          applyState(s);sharedFeedback=null;localStorage.removeItem('career_student_feedback_v5');renderStudentIdentity();renderQuestion();saveState();toast('학생 작성 파일을 불러왔습니다.');
+        }catch(error){toast('이 프로그램에서 저장한 JSON 작업파일인지 확인해 주세요.');}
+      };
+      reader.onerror=()=>toast('파일을 읽을 수 없어요.');reader.readAsText(file,'utf-8');
+    }
+    function clearData(){
+      if(!window.confirm('이 브라우저에 저장된 고등학교·대학교 답변, 메모, 작성자 정보를 모두 지울까요?\n복구하려면 미리 JSON 작업파일을 저장해야 합니다.'))return;
+      const blank=freshState();applyState(blank);renderStudentIdentity();sharedFeedback=null;localStorage.removeItem('career_student_feedback_v5');localStorage.removeItem(SCHOOL_HISTORY_KEY);
+      try{localStorage.removeItem(STORAGE_KEY);}catch(e){}
+      renderQuestion();saveState();toast('이 기기에서 이전 작성 기록을 지웠어요.');
+    }
+    function bind(){
+      $('mode-high').addEventListener('click',()=>setMode('high'));
+      $('mode-univ').addEventListener('click',()=>setMode('univ'));
+      $('student-name').addEventListener('input',e=>{state.author=e.target.value;scheduleSave();});
+      $('student-region').addEventListener('change',e=>{if(state.profile.region!==e.target.value){state.profile.region=e.target.value;state.profile.school='';$('student-school').value='';renderSchoolOptions();scheduleSave();}});
+      $('student-school').addEventListener('input',e=>{state.profile.school=e.target.value;scheduleSave();});
+      $('student-school').addEventListener('change',rememberSchool);
+      $('student-school').addEventListener('blur',rememberSchool);
+      for(const [id,key] of [['student-grade','grade'],['student-class','classNo'],['student-number','number']])$(id).addEventListener('change',e=>{state.profile[key]=e.target.value;scheduleSave();});
+      $('qr-open').addEventListener('click',()=>openModal('qr-modal'));
+      $('qr-copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(SITE_URL);toast('QR 연결 주소를 복사했습니다.');}catch(e){toast('주소를 길게 눌러 직접 복사해 주세요.');}});
+      for(let i=0;i<3;i++)$('memo-'+i).addEventListener('input',e=>{getCurrent().memo[i]=e.target.value;renderFeedback();renderQuestionList();scheduleSave();});
+      $('essay-draft').addEventListener('input',e=>{getCurrent().draft=e.target.value;renderFeedback();renderQuestionList();scheduleSave();renderSharedFeedback();});
+      $('compose').addEventListener('click',makeSkeleton);
+      $('prev-question').addEventListener('click',()=>goQuestion(state.active[state.mode]-1));
+      $('next-question').addEventListener('click',()=>{
+        const n=state.active[state.mode];
+        if(n===QUESTIONS[state.mode].length-1)openModal('preview-modal');else goQuestion(n+1);
+      });
+      $('preview-open').addEventListener('click',()=>openModal('preview-modal'));
+      $('download-txt').addEventListener('click',()=>{downloadFile('\uFEFF'+currentOutput(),filename('txt'),'text/plain;charset=utf-8');toast('TXT 파일을 저장했어요.');});
+      $('download-csv').addEventListener('click',exportCSV);
+      $('download-json').addEventListener('click',()=>{downloadFile(JSON.stringify({app:'자소서 실험실',version:1,exportedAt:new Date().toISOString(),...state},null,2),'자소서연습_작업백업_'+safeFileName(state.author)+'.json','application/json;charset=utf-8');toast('제출 파일을 저장했어요. 이 파일을 선생님께 전달하세요. 자동 제출되지는 않습니다.');});
+      $('upload-json').addEventListener('click',()=>$('upload-file').click());
+      $('upload-file').addEventListener('change',e=>{importFile(e.target.files[0]);e.target.value='';});
+      $('clear-data').addEventListener('click',clearData);
+      $('copy-all').addEventListener('click',copyAll);
+      $('print-all').addEventListener('click',()=>window.print());
+      document.querySelectorAll('[data-close-modal]').forEach(b=>b.addEventListener('click',()=>closeModal(b.dataset.closeModal)));
+      document.querySelectorAll('.modal-layer').forEach(layer=>layer.addEventListener('click',e=>{if(e.target===layer)closeModal(layer.id);}));
+      document.addEventListener('keydown',e=>{if(e.key==='Escape'){for(const layer of document.querySelectorAll('.modal-layer.is-open'))closeModal(layer.id);}});
+      window.addEventListener('pagehide',()=>{clearTimeout(timer);saveState();});
+    }
+
+    let sharedFeedback=null;
+    function renderSharedFeedback(){
+      const el=$('shared-feedback');if(!el)return;
+      const v=sharedFeedback?.reviews?.[state.mode]?.[state.active[state.mode]];
+      if(!v){el.textContent='이 문항에 전달받은 피드백이 없습니다.';return;}
+      const parts=[];
+      if(v.original && v.original!==getCurrent().draft) parts.push('※ 피드백을 받은 뒤 글이 변경되었거나 다른 버전의 글입니다.');
+      for(const [key,label] of [['good','잘한 점'],['improve','보완할 점'],['task','다음 수정 과제'],['revision','선생님이 제안한 표현']])
+        if(typeof v[key]==='string'&&v[key].trim())parts.push('['+label+']\n'+v[key]);
+      if(Array.isArray(v.annotations))for(const a of v.annotations){if(a.note)parts.push('인용: '+(a.quote||'')+'\n지도 의견: '+a.note);}
+      el.textContent=parts.join('\n\n')||'선생님이 이 문항에 작성한 의견이 아직 없습니다.';
+    }
+    function acceptFeedback(raw){
+      if(raw?.kind!=='essay-student-feedback'||!raw.reviews||raw.teacher||raw.records)throw Error('학생용 피드백 JSON만 사용할 수 있어요.');
+      const cut=v=>typeof v==='string'?v.slice(0,100000):'';
+      const result={kind:'essay-student-feedback',author:cut(raw.author),profile:normalizedProfile(raw.profile),reviews:{}};
+      for(const mode of ['high','univ']) result.reviews[mode]=QUESTIONS[mode].map((_,i)=>{
+        const v=raw.reviews[mode]?.[i]||{}, out={};
+        for(const k of ['original','good','improve','task','revision'])out[k]=cut(v[k]);
+        out.annotations=(Array.isArray(v.annotations)?v.annotations:[]).slice(0,100).map(a=>({quote:cut(a.quote),note:cut(a.note)}));return out;
+      });
+      const identity=[result.profile.school,result.profile.grade&&result.profile.grade+'학년',result.profile.classNo&&result.profile.classNo+'반',result.profile.number&&result.profile.number+'번',result.author].filter(Boolean).join(' ');
+      if(!window.confirm('피드백 대상: '+(identity||'미기재')+'\n본인의 피드백 파일이 맞는지 확인하세요. 불러올까요?'))return;
+      sharedFeedback=result;localStorage.setItem('career_student_feedback_v5',JSON.stringify(result));renderSharedFeedback();
+    }
+    $('feedback-import').addEventListener('click',()=>$('feedback-file').click());
+    $('feedback-file').addEventListener('change',async e=>{try{const f=e.target.files[0];if(!f)return;if(f.size>2*1024*1024)throw Error('2MB 이하 파일을 선택하세요.');acceptFeedback(JSON.parse(await f.text()));}catch(err){toast(err.message);}finally{e.target.value='';}});
+    try{sharedFeedback=JSON.parse(localStorage.getItem('career_student_feedback_v5')||'null');}catch(e){}
+    for(const [id,max,label] of [['student-class',50,'반'],['student-number',60,'번']]){
+      const sel=$(id);for(let i=1;i<=max;i++){const opt=document.createElement('option');opt.value=String(i);opt.textContent=i+label;sel.append(opt);}
+    }
+    loadPersisted();renderStudentIdentity();bind();renderQuestion();
+  })();
+</script>
+</body>
+</html>
